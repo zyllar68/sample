@@ -7,4 +7,10 @@
     font-weight: $bold;
     color: $primary-color;
   }
+  p {
+    font-size: 14px;
+    color: $error;
+    margin-top: 1rem;
+    margin-bottom: -1rem;
+  }
 }
