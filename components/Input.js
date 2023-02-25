@@ -7,11 +7,17 @@ const Input = ({
   onChange,
   type = "text",
   disabled,
+  marginTop,
 }) => {
+  const style = {
+    marginTop,
+  };
+
   return (
     <input
+      style={style}
       type={type}
-      className=''
+      className='borderedInput'
       onChange={onChange}
       value={value}
       name={name}
