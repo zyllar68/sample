@@ -1,7 +1,25 @@
+import { useState, useEffect } from "react";
+
 import Head from "next/head";
+import Image from "next/image";
 import { LoginCard } from "@/components";
+import LoginLogo from "@/public/loginBigLogo.png";
+import loginMobileLogo from "@/public/loginMobileLogo.png";
 
 export default function Home() {
+  const [windowSize, setWindowSize] = useState({ width: 0 });
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowSize({
+        width: window.innerWidth,
+      });
+    }
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <>
       <Head>
@@ -11,6 +29,23 @@ export default function Home() {
         {/* <link rel='icon' href='/favicon.ico' /> */}
       </Head>
       <main className='adminLogin'>
+        <div style={{ marginBottom: "2.125rem" }}>
+          {windowSize.width < 576 ? (
+            <Image
+              src={loginMobileLogo}
+              width={194.88}
+              height={97.01}
+              alt='swertres logo'
+            />
+          ) : (
+            <Image
+              src={LoginLogo}
+              width={353}
+              height={120}
+              alt='swertres logo'
+            />
+          )}
+        </div>
         <LoginCard />
       </main>
     </>
