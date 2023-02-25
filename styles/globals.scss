@@ -1,6 +1,8 @@
 @import "./variables.scss";
 @import "./login.scss";
 @import "./loginCard.scss";
+@import "./input.scss";
+@import "./button.scss";
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap");
 
@@ -37,4 +39,8 @@ h5,
 h6,
 p {
   margin: 0;
+}
+
+.primary-bg-color {
+  background-color: $primary-color;
 }
