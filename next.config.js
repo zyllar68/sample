@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
-const withSass = require("@zeit/next-sass");
+const path = require("path");
 const nextConfig = {
+  sassOptions: {
+    includePaths: [path.join(__dirname, "styles")],
+  },
   reactStrictMode: true,
 };
 
-module.exports = withSass(nextConfig);
+module.exports = nextConfig;
