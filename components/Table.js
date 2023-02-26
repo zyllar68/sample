@@ -1,6 +1,6 @@
-const Table = ({ children, theadData = [], tbodyData = [] }) => {
+const Table = ({ theadData = [], tbodyData = [] }) => {
   return (
-    <table>
+    <table className='table'>
       <thead>
         <tr>
           {theadData.map((item, i) => (
@@ -9,9 +9,11 @@ const Table = ({ children, theadData = [], tbodyData = [] }) => {
         </tr>
       </thead>
       <tbody>
-        {tbodyData.map((item, i) => (
+        {tbodyData.map((array, i) => (
           <tr key={i}>
-            <td>yeah</td>
+            {array.map((item, i) => (
+              <td key={i}>{item}</td>
+            ))}
           </tr>
         ))}
       </tbody>
