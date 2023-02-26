@@ -7,6 +7,7 @@
 @import "./mobile.scss";
 @import "./table.scss";
 @import "./transaction.scss";
+@import "./webNavbar.scss";
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap");
 
@@ -28,6 +29,8 @@ body {
 
 html,
 body {
+  margin: 0;
+  padding: 0;
   max-width: 100vw;
   overflow-x: hidden;
   font-size: 100%;
@@ -41,7 +44,8 @@ h3,
 h4,
 h5,
 h6,
-p {
+p,
+ul {
   margin: 0;
 }
 
