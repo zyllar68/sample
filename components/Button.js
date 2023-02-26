@@ -1,7 +1,7 @@
 import classNames from "classnames";
 
-const Button = ({ title, primary, marginTop }) => {
-  const style = { marginTop };
+const Button = ({ title, primary, marginTop, width }) => {
+  const style = { marginTop, width };
   return (
     <button
       style={style}

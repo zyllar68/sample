@@ -1,10 +1,11 @@
 .WebNavbar {
-  height: 48px;
+  height: 3rem;
   background-color: $primary-color;
   list-style-type: none;
   width: 100%;
   display: flex;
   align-items: center;
+  position: fixed;
   li {
     &:last-child {
       margin-left: 1.25rem;

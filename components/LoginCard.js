@@ -28,7 +28,7 @@ const LoginCard = () => {
         />
         <Input marginTop='1.25rem' placeholder='password' type='password' />
         <p>error message</p>
-        <Button marginTop='1.875rem' title='Login' primary />
+        <Button marginTop='1.875rem' title='Login' width='100%' primary />
       </form>
     </div>
   );

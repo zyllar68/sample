@@ -8,6 +8,7 @@
 @import "./table.scss";
 @import "./transaction.scss";
 @import "./webNavbar.scss";
+@import "./pageTitle.scss";
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap");
 
@@ -51,4 +52,9 @@ ul {
 
 .primary-bg-color {
   background-color: $primary-color;
+}
+
+.web-cotnainer {
+  // padding-top: 4.5rem;
+  padding: 5.75rem 2.5rem 0px 2.5rem;
 }

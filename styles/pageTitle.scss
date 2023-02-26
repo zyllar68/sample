@@ -1,0 +1,11 @@
+.pageTitle {
+  border-bottom: 1px solid $very-light-gray;
+  padding-bottom: 2.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  h1 {
+    font-size: 2.5rem;
+  }
+}
