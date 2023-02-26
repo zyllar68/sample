@@ -1,0 +1,19 @@
+.transaction {
+  &_totalCollected {
+    margin: auto 0;
+    p {
+      font-size: 1.25rem;
+      font-weight: $semiBold;
+      max-width: 150px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  &_filter {
+    display: grid;
+    gap: 0.625rem;
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 1.25rem;
+  }
+}

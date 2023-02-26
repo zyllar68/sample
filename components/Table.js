@@ -1,4 +1,4 @@
-const Table = ({ theadData = [], tbodyData = [] }) => {
+const Table = ({ theadData = [], tbodyData = [], children }) => {
   return (
     <table className='table'>
       <thead>
@@ -16,6 +16,7 @@ const Table = ({ theadData = [], tbodyData = [] }) => {
             ))}
           </tr>
         ))}
+        {children && children}
       </tbody>
     </table>
   );

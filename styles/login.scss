@@ -6,3 +6,22 @@
   background-color: $primary-color;
   flex-direction: column;
 }
+
+.mobileBg {
+  background-image: url("../public/mobileBg.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.bigBg {
+  background-image: url("../public/1080Bg.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.extraBigBg {
+  background-image: url("../public/1440Bg.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}

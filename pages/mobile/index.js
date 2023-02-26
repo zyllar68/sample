@@ -10,7 +10,7 @@ const tbodyData = [
 const index = () => {
   return (
     <div>
-      <MobileNavbar />
+      <MobileNavbar title='Home' />
       <div className='mobileContent'>
         <p className='mobileContent_drawTime'>
           Draw: 03-22-2023 1st Draw (2pm)
