@@ -1,0 +1,24 @@
+.WebNavbar {
+  height: 48px;
+  background-color: $primary-color;
+  list-style-type: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  li {
+    &:last-child {
+      margin-left: 1.25rem;
+    }
+    a {
+      color: white;
+      text-decoration: none;
+      &:hover {
+        color: $yellow;
+      }
+    }
+
+    .active {
+      color: $yellow;
+    }
+  }
+}
