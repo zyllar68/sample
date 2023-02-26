@@ -56,11 +56,11 @@
 
   .menu-btn {
     width: 30px;
+    cursor: pointer;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
     transition: all 0.2s ease-in-out;
   }
   .menu-btn__burger {

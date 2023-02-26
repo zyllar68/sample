@@ -3,12 +3,12 @@ import Link from "next/link";
 
 import classNames from "classnames";
 
-const MobileNavbar = () => {
+const MobileNavbar = ({ title }) => {
   const [burger, setBurger] = useState(false);
   return (
     <div className='MobileNavbar'>
       <div className='MobileNavbar_container'>
-        <h4>Home</h4>
+        <h4>{title}</h4>
         <div
           className={classNames("menu-btn", {
             open: burger,
@@ -31,7 +31,7 @@ const MobileNavbar = () => {
           <Link href='/mobile/transaction'>Transactions</Link>
         </li>
         <li>
-          <Link href='/mobile/transaction'>Report</Link>
+          <Link href='/mobile/report'>Report</Link>
         </li>
       </ul>
     </div>
