@@ -1,0 +1,27 @@
+.mobileContent {
+  padding-top: 7rem;
+  padding-left: 4.375rem;
+  padding-right: 4.375rem;
+
+  &_drawTime {
+    text-align: center;
+    color: $gray;
+    margin-bottom: 0.625rem;
+  }
+
+  &_form {
+    display: grid;
+    gap: 0.625rem;
+    grid-template-columns: 50% auto;
+    margin-bottom: 1.25rem;
+    .div {
+      margin: auto 0;
+      p {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
