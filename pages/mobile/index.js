@@ -1,6 +1,11 @@
 import { MobileNavbar, Input, Button, Table } from "@/components";
 
 const theadData = ["Number", "Amount", "Type"];
+const tbodyData = [
+  ["123", "10.00", "Target"],
+  ["123", "10.00", "Rambol"],
+  ["123", "10.00", "Target"],
+];
 
 const index = () => {
   return (
@@ -20,9 +25,7 @@ const index = () => {
           </div>
           <Button title='Submit' />
         </form>
-        <Table theadData={theadData}>
-          <p>yeah</p>
-        </Table>
+        <Table theadData={theadData} tbodyData={tbodyData} />
       </div>
     </div>
   );

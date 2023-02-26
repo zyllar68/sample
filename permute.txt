@@ -1,0 +1,12 @@
+  for (let i = 0; i < digits.length; i++) {
+    for (let j = 0; j < digits.length; j++) {
+      for (let k = 0; k < digits.length; k++) {
+        if (i !== j && j !== k && i !== k) {
+          const combination = parseInt(digits[i] + digits[j] + digits[k]);
+          if (!combinations.includes(combination)) {
+            combinations.push(combination);
+          }
+        }
+      }
+    }
+  }
