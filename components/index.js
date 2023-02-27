@@ -7,3 +7,4 @@ export { default as WebNavbar } from "./WebNavbar";
 export { default as PageTitle } from "./PageTitle";
 export { default as CardWrapper } from "./CardWrapper";
 export { default as Card } from "./Card";
+export { default as Modal } from "./Modal";

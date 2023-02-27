@@ -3,7 +3,7 @@ import {
   PageTitle,
   Button,
   Table,
-  CardWrapper,
+  Modal,
   Input,
 } from "@/components";
 
@@ -12,6 +12,7 @@ const theadData = ["March 01, 2023", "March 31, 2023"];
 const financial = () => {
   return (
     <>
+      <Modal />
       <WebNavbar />
       <div className='web-cotnainer'>
         <PageTitle title='Financial Reports' />
