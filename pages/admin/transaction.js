@@ -4,7 +4,7 @@ import {
   Button,
   Table,
   CardWrapper,
-  Card,
+  Input,
 } from "@/components";
 
 const theadData = [
@@ -29,7 +29,18 @@ const transaction = () => {
         <PageTitle title='Draws'>
           <p>03-12-2023 1st Draw (2pm)</p>
         </PageTitle>
-        <CardWrapper>yeah</CardWrapper>
+        <CardWrapper>
+          {/* <Button title='Close Draw' primary /> */}
+          {/* <div style={{ display: "flex", alignItems: "center", gap: ".7rem" }}>
+            <Input placeholder='Enter Result' />
+            <Button title='Confirm' primary />
+          </div> */}
+          <p
+            style={{ fontWeight: "600", fontSize: "1.5rem", color: "#343A40" }}
+          >
+            Winning Number: 123
+          </p>
+        </CardWrapper>
         <Table theadData={theadData} tbodyData={tbodyData} />
       </div>
     </>
