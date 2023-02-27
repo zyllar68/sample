@@ -8,9 +8,11 @@ const Input = ({
   type = "text",
   disabled,
   marginTop,
+  width,
 }) => {
   const style = {
     marginTop,
+    width,
   };
 
   return (

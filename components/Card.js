@@ -1,11 +1,12 @@
 import classnames from "classnames";
 
-const Card = ({ primary, peach }) => {
+const Card = ({ bgColor }) => {
   return (
     <div
       className={classnames("card", {
-        "primary-bg-color": primary,
-        "peach-bg": peach,
+        "primary-bg-color": bgColor === "primary",
+        "peach-bg": bgColor === "peach",
+        "light-black-bg": bgColor === "light-black",
       })}
     >
       <h4>P 5000,000.00</h4>
