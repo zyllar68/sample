@@ -1,10 +1,21 @@
 import { useRouter } from "next/router";
+import classNames from "classnames";
 
-const Table = ({ theadData = [], tbodyData = [], children, onClick }) => {
+const Table = ({
+  theadData = [],
+  tbodyData = [],
+  children,
+  width,
+  theadText,
+}) => {
   const router = useRouter();
+
+  const style = {
+    width,
+  };
   return (
-    <table className='table'>
-      <thead>
+    <table className='table' style={style}>
+      <thead className={classNames({ "text-left": theadText })}>
         <tr>
           {theadData.map((item, i) => (
             <th key={i}>{item}</th>
