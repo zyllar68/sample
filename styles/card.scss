@@ -1,0 +1,14 @@
+.card {
+  padding: 1.0625rem 1.75rem 1.0625rem 1.75rem;
+  border-radius: 4px;
+  text-align: center;
+  h4 {
+    font-weight: $extraBold;
+    font-size: 1.5rem;
+    color: white;
+  }
+  p {
+    margin-top: 9px;
+    color: white;
+  }
+}

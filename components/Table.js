@@ -1,4 +1,7 @@
-const Table = ({ theadData = [], tbodyData = [], children }) => {
+import { useRouter } from "next/router";
+
+const Table = ({ theadData = [], tbodyData = [], children, onClick }) => {
+  const router = useRouter();
   return (
     <table className='table'>
       <thead>
@@ -10,7 +13,7 @@ const Table = ({ theadData = [], tbodyData = [], children }) => {
       </thead>
       <tbody>
         {tbodyData.map((array, i) => (
-          <tr key={i}>
+          <tr key={i} onClick={() => router.push("/admin/transaction")}>
             {array.map((item, i) => (
               <td key={i}>{item}</td>
             ))}

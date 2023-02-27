@@ -8,7 +8,11 @@ const WebNavbar = () => {
     <ul className='WebNavbar'>
       <li>
         <Link
-          className={classnames({ active: router.pathname === "/admin" })}
+          className={classnames({
+            active:
+              router.pathname === "/admin" ||
+              router.pathname === "/admin/transaction",
+          })}
           href='/admin/'
         >
           Draws

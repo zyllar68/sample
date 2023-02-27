@@ -5,3 +5,5 @@ export { default as MobileNavbar } from "./MobileNavbar";
 export { default as Table } from "./Table";
 export { default as WebNavbar } from "./WebNavbar";
 export { default as PageTitle } from "./PageTitle";
+export { default as CardWrapper } from "./CardWrapper";
+export { default as Card } from "./Card";
