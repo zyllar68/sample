@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/users/index.js": {
+    "api/users": {
       "maxDuration": 60
     }
   }
