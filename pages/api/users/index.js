@@ -4,6 +4,7 @@ const NEXT_API_KEY = process.env.NEXT_API_KEY;
 
 export default async function handler(req, res) {
   const apiKey = req.headers["api-key"];
+  const ipAddress = req.headers["x-real-ip"];
   const client = await clientPromise;
   const db = client.db(process.env.MONGODB_NAME);
 
@@ -29,20 +30,20 @@ export default async function handler(req, res) {
         .toString()
         .padStart(3, "0")}`;
 
-      const user = await db
-        .collection(`${req.body.accountType === "admin" ? "admin" : "usher"}`)
-        .insertOne({
-          _id: newId,
-          username: req.body.username,
-          password: req.body.password,
-          fullName: req.body.fullName,
-          accountType: req.body.accountType,
-          phoneNumber: req.body.phoneNumber,
-          address: req.body.address,
-          status: 1,
-        });
+      // const user = await db
+      //   .collection(`${req.body.accountType === "admin" ? "admin" : "usher"}`)
+      //   .insertOne({
+      //     _id: newId,
+      //     username: req.body.username,
+      //     password: req.body.password,
+      //     fullName: req.body.fullName,
+      //     accountType: req.body.accountType,
+      //     phoneNumber: req.body.phoneNumber,
+      //     address: req.body.address,
+      //     status: 1,
+      //   });
 
-      res.status(200).json(user);
+      res.status(200).json(ipAddress);
     } catch (error) {
       console.log(error);
     }
