@@ -13,9 +13,8 @@ export default async function handler(req, res) {
   }
 
   if (req.method === "POST") {
-    let newId;
     try {
-      res.status(200).json(ipAddress);
+      res.status(200).json(`yeah ${ipAddress}`);
     } catch (error) {
       console.log(error);
     }
