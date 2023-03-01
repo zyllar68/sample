@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/users/index.js": {
+    "api/users.js": {
       "memory": 3008,
       "maxDuration": 30
     }
