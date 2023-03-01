@@ -1,8 +1,8 @@
 {
   "functions": {
     "api/user/index.js": {
-      "memory": 128,
-      "timeout": 10
+      "runtime": "node12",
+      "memory": 128
     }
   }
 }
