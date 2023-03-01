@@ -2,7 +2,7 @@
   "functions": {
     "api/user/index.js": {
       "memory": 128,
-      "timeout": 10
+      "maxDuration": 30
     }
   }
 }
