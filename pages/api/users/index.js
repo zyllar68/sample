@@ -30,20 +30,20 @@ export default async function handler(req, res) {
         .toString()
         .padStart(3, "0")}`;
 
-      // const user = await db
-      //   .collection(`${req.body.accountType === "admin" ? "admin" : "usher"}`)
-      //   .insertOne({
-      //     _id: newId,
-      //     username: req.body.username,
-      //     password: req.body.password,
-      //     fullName: req.body.fullName,
-      //     accountType: req.body.accountType,
-      //     phoneNumber: req.body.phoneNumber,
-      //     address: req.body.address,
-      //     status: 1,
-      //   });
+      const user = await db
+        .collection(`${req.body.accountType === "admin" ? "admin" : "usher"}`)
+        .insertOne({
+          _id: newId,
+          username: req.body.username,
+          password: req.body.password,
+          fullName: req.body.fullName,
+          accountType: req.body.accountType,
+          phoneNumber: req.body.phoneNumber,
+          address: req.body.address,
+          status: 1,
+        });
 
-      res.status(200).json(ipAddress);
+      res.status(200).json(user);
     } catch (error) {
       console.log(error);
     }
