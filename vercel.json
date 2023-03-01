@@ -1,7 +1,8 @@
 {
   "functions": {
-    "api/users": {
-      "maxDuration": 60
+    "api/test.js": {
+      "memory": 3008,
+      "maxDuration": 30
     }
   }
 }
