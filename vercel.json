@@ -1,8 +1,0 @@
-{
-  "functions": {
-    "api/user/index.js": {
-      "runtime": "node12",
-      "memory": 128
-    }
-  }
-}
