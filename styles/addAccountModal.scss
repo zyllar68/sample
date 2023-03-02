@@ -1,0 +1,25 @@
+.addAccountModal {
+  &__header {
+    border-bottom: 1px solid $very-light-gray;
+    font-weight: $semiBold;
+    padding: 1rem;
+  }
+  &__content {
+    border-bottom: 1px solid $very-light-gray;
+    padding: 1.875rem 3.75rem 1.875rem 3.75rem;
+  }
+
+  &__form {
+    &:not(:first-child) {
+      padding-bottom: 1.25rem;
+    }
+  }
+
+  &__buttons {
+    padding: 1.625rem;
+    float: right;
+    button:first-child {
+      margin-right: 1rem;
+    }
+  }
+}

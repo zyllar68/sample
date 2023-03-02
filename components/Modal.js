@@ -1,23 +1,16 @@
 import ReactModal from "react-modal";
-
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
+import { Input, Button } from "@/components";
 
 ReactModal.setAppElement("#root");
 
-const Modal = () => {
+const Modal = ({ children, isOpen, closeModal, handleSubmitForm }) => {
   return (
-    <ReactModal isOpen style={customStyles}>
-      <h2>Hello</h2>
-    </ReactModal>
+    <ReactModal
+      isOpen={isOpen}
+      closeModal={closeModal}
+      style={customStyles}
+      className='addAccountModal'
+    ></ReactModal>
   );
 };
 

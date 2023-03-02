@@ -36,7 +36,7 @@ export default async function handler(req, res) {
       const token = jwt.sign(
         {
           userId: authResult._id.toString(),
-          accountType: authResult.acountType,
+          accountType: authResult.accountType,
         },
         process.env.JWT_SECRET
       );

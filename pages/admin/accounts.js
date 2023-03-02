@@ -1,4 +1,12 @@
-import { WebNavbar, PageTitle, Button, Table, Input } from "@/components";
+import { useState } from "react";
+import {
+  WebNavbar,
+  PageTitle,
+  Button,
+  Table,
+  Input,
+  AddAccountModal,
+} from "@/components";
 import { protectPage } from "@/lib/pageAuth";
 
 const theadData = [
@@ -28,13 +36,19 @@ export async function getServerSideProps(context) {
 }
 
 const accounts = () => {
+  const [modal, setModal] = useState(false);
   return (
     <>
+      <AddAccountModal isOpen={modal} closeModal={() => setModal(!modal)} />
       <WebNavbar />
       <div className='web-cotnainer'>
         <PageTitle title='Account Management'>
           <div style={{ display: "flex", gap: "1rem" }}>
-            <Button primary title='Create New' />
+            <Button
+              primary
+              title='Create New'
+              onClick={() => setModal(!modal)}
+            />
           </div>
         </PageTitle>
         <div style={{ display: "flex", gap: "1rem", marginBottom: "2.5rem" }}>

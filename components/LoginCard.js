@@ -28,15 +28,13 @@ const LoginCard = () => {
         },
       });
 
-      // Cookies.set("token", token, { expires: 365 });
-
       if (Cookies.set("token", res.data.token, { expires: 365 })) {
         const decoded = jwt.decode(res.data.token);
         const accountType = decoded.accountType;
         if (accountType === "admin") {
           router.push("/admin");
         } else {
-          router.push("/admin");
+          router.push("/usher");
         }
       }
 
