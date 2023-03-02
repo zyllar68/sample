@@ -6,6 +6,7 @@ import {
   CardWrapper,
   Input,
 } from "@/components";
+import { protectPage } from "@/lib/pageAuth";
 
 const theadData = [
   "Account ID",
@@ -65,3 +66,20 @@ const accounts = () => {
 };
 
 export default accounts;
+
+export async function getServerSideProps(context) {
+  // use protectPage function to check JWT token
+  const protectedPage = await protectPage(context);
+
+  // if the user is not authenticated, redirect to login page
+  if ("redirect" in protectedPage) {
+    return protectedPage;
+  }
+
+  // continue with rendering the protected page
+  return {
+    props: {
+      // pass any necessary props to the protected page
+    },
+  };
+}
