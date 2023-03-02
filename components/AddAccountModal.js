@@ -41,7 +41,7 @@ const reducer = (state, action) => {
   }
 };
 
-const AddAccountModal = ({ isOpen, closeModal }) => {
+const AddAccountModal = ({ isOpen, closeModal, setUsers }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [error, setError] = useState();
 
@@ -65,7 +65,7 @@ const AddAccountModal = ({ isOpen, closeModal }) => {
     }
     if (authToken) {
       try {
-        const res = await axios({
+        await axios({
           method: "POST",
           url: "users",
           headers: {
@@ -82,6 +82,17 @@ const AddAccountModal = ({ isOpen, closeModal }) => {
             address: state.address,
           },
         });
+
+        const res = await axios({
+          method: "GET",
+          url: "users",
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": process.env.NEXT_PUBLIC_API_KEY,
+          },
+          baseURL: "http://localhost:3000/api/",
+        });
+        setUsers(res.data);
         if (res.status === 200) {
           dispatch({ type: "RESET" });
           closeModal();

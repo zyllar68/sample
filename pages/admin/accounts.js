@@ -8,6 +8,7 @@ import {
   AddAccountModal,
 } from "@/components";
 import { protectPage } from "@/lib/pageAuth";
+import axios from "axios";
 
 const theadData = [
   "Account ID",
@@ -28,18 +29,38 @@ export async function getServerSideProps(context) {
     return protectedPage;
   }
 
-  return {
-    props: {
-      // pass any necessary props to the protected page
-    },
-  };
+  try {
+    const res = await axios({
+      method: "GET",
+      url: "users",
+      headers: {
+        "Content-Type": "application/json",
+        "api-key": process.env.NEXT_PUBLIC_API_KEY,
+      },
+      baseURL: "http://localhost:3000/api/",
+    });
+    return {
+      props: {
+        data: res.data,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-const accounts = () => {
+const accounts = ({ data }) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [modal, setModal] = useState(false);
+  const [users, setUsers] = useState(data);
+
   return (
     <>
-      <AddAccountModal isOpen={modal} closeModal={() => setModal(!modal)} />
+      <AddAccountModal
+        isOpen={modal}
+        closeModal={() => setModal(!modal)}
+        setUsers={setUsers}
+      />
       <WebNavbar />
       <div className='web-cotnainer'>
         <PageTitle title='Account Management'>
@@ -56,32 +77,21 @@ const accounts = () => {
           <Input placeholder='Search Account' width='19rem' />
         </div>
         <Table theadData={theadData}>
-          <tr>
-            <td>U001</td>
-            <td>Usher</td>
-            <td>usher001</td>
-            <td>usher001</td>
-            <td>
-              <Button primary title='Reset' />
-            </td>
-            <td>
-              <Button primary title='Assign' />
-            </td>
-            <td>0999999999</td>
-          </tr>
-          <tr>
-            <td>U001</td>
-            <td>Usher</td>
-            <td>usher001</td>
-            <td>usher001</td>
-            <td>
-              <Button primary title='Reset' />
-            </td>
-            <td>
-              <Button primary title='Assign' />
-            </td>
-            <td>0999999999</td>
-          </tr>
+          {users.map(({ _id, accountType, name, phoneNumber }) => (
+            <tr key={_id}>
+              <td>{_id}</td>
+              <td>{accountType}</td>
+              <td>{name}</td>
+              <td>usher001</td>
+              <td>
+                <Button primary title='Reset' />
+              </td>
+              <td>
+                <Button primary title='Assign' />
+              </td>
+              <td>{phoneNumber}</td>
+            </tr>
+          ))}
         </Table>
       </div>
     </>

@@ -13,11 +13,11 @@ export default async function handler(req, res) {
     return res.status(401).json({ message: "Invalid api key" });
   }
 
-  const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
   switch (req.method) {
     case "POST":
       let newId;
+      const oldPass = req.body.password;
+      const hashedPassword = await bcrypt.hash(oldPass, 10);
       try {
         const highestId = await db
           .collection("users")
@@ -46,10 +46,9 @@ export default async function handler(req, res) {
       break;
     case "GET":
       try {
-        const users = await db
-          .collection("users")
-          .find({ accountType: "ushers" })
-          .toArray();
+        const users = await db.collection("users").find().toArray();
+
+        res.status(200).json(users);
       } catch (error) {
         res.status(500).json({ message: `Internal server error ${error}` });
       }
