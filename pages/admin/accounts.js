@@ -1,11 +1,4 @@
-import {
-  WebNavbar,
-  PageTitle,
-  Button,
-  Table,
-  CardWrapper,
-  Input,
-} from "@/components";
+import { WebNavbar, PageTitle, Button, Table, Input } from "@/components";
 import { protectPage } from "@/lib/pageAuth";
 
 const theadData = [
@@ -17,6 +10,22 @@ const theadData = [
   "GenCoor",
   "Phone Number",
 ];
+
+export async function getServerSideProps(context) {
+  // use protectPage function to check JWT token
+  const protectedPage = await protectPage(context);
+
+  // if the user is not authenticated, redirect to login page
+  if (protectedPage && "redirect" in protectedPage) {
+    return protectedPage;
+  }
+
+  return {
+    props: {
+      // pass any necessary props to the protected page
+    },
+  };
+}
 
 const accounts = () => {
   return (
@@ -66,20 +75,3 @@ const accounts = () => {
 };
 
 export default accounts;
-
-export async function getServerSideProps(context) {
-  // use protectPage function to check JWT token
-  const protectedPage = await protectPage(context);
-
-  // if the user is not authenticated, redirect to login page
-  if ("redirect" in protectedPage) {
-    return protectedPage;
-  }
-
-  // continue with rendering the protected page
-  return {
-    props: {
-      // pass any necessary props to the protected page
-    },
-  };
-}
