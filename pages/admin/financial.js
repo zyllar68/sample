@@ -3,7 +3,7 @@ import {
   PageTitle,
   Button,
   Table,
-  Modal,
+  AddAccountModal,
   Input,
 } from "@/components";
 
@@ -12,7 +12,7 @@ const theadData = ["March 01, 2023", "March 31, 2023"];
 const Financial = () => {
   return (
     <>
-      <Modal />
+      <AddAccountModal />
       <WebNavbar />
       <div className='web-cotnainer'>
         <PageTitle title='Financial Reports' />
