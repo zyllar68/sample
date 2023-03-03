@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { WebNavbar, PageTitle, Button, Table } from "@/components";
 import axios from "axios";
 
+import isAuthenticated from "@/lib/authenticateToken";
+
 const theadData = [
   "Date",
   "Type",
@@ -16,7 +18,7 @@ const Admin = ({ data }) => {
   const [newDrawStatus, setNewDrawStatus] = useState(false);
 
   useEffect(() => {
-    const result = drawData.find((item) => item.timeClosed === "open");
+    const result = drawData.some((item) => item.timeClosed === "open");
     if (result) {
       setNewDrawStatus(true);
     } else {
@@ -26,29 +28,32 @@ const Admin = ({ data }) => {
   }, [drawData]);
 
   const openDrawHandler = async () => {
-    try {
-      await axios({
-        method: "POST",
-        url: "draw",
-        headers: {
-          "Content-Type": "application/json",
-          "api-key": process.env.NEXT_PUBLIC_API_KEY,
-        },
-        baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-      });
+    const authToken = await isAuthenticated();
+    if (authToken) {
+      try {
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/draw`,
+          {},
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "api-key": process.env.NEXT_PUBLIC_API_KEY,
+            },
+          }
+        );
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/draw`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "api-key": process.env.NEXT_PUBLIC_API_KEY,
+            },
+          }
+        );
 
-      const drawRes = await axios({
-        method: "GET",
-        url: "draw",
-        headers: {
-          "Content-Type": "application/json",
-          "api-key": process.env.NEXT_PUBLIC_API_KEY,
-        },
-        baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-      });
-
-      setDrawData(drawRes.data);
-    } catch (error) {}
+        setDrawData(res.data);
+      } catch (error) {}
+    }
   };
   return (
     <>
@@ -69,21 +74,25 @@ export default Admin;
 
 export async function getServerSideProps(context) {
   try {
-    const res = await axios({
-      method: "GET",
-      url: "draw",
-      headers: {
-        "Content-Type": "application/json",
-        "api-key": process.env.NEXT_PUBLIC_API_KEY,
-      },
-      baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-    });
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/draw`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "api-key": process.env.NEXT_PUBLIC_API_KEY,
+        },
+      }
+    );
     return {
       props: {
         data: res.data,
       },
     };
   } catch (error) {
-    res.status(500).json({ message: `Internal server error ${error}` });
+    return {
+      props: {
+        error: true,
+      },
+    };
   }
 }

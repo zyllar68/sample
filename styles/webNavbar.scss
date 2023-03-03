@@ -7,7 +7,7 @@
   align-items: center;
   position: fixed;
   li {
-    &:last-child {
+    &:not(:first-child) {
       margin-left: 1.25rem;
     }
     a {

@@ -25,7 +25,7 @@ const initialState = {
   username: "",
   password: "",
   accountType: "",
-  name: "",
+  fullName: "",
   phoneNumber: "",
   address: "",
 };
@@ -57,7 +57,7 @@ const AddAccountModal = ({ isOpen, closeModal, setUsers }) => {
       state.username === "" ||
       state.password === "" ||
       state.accountType === "" ||
-      state.name === "" ||
+      state.fullName === "" ||
       state.address === "" ||
       state.phoneNumber === ""
     ) {
@@ -72,12 +72,12 @@ const AddAccountModal = ({ isOpen, closeModal, setUsers }) => {
             "Content-Type": "application/json",
             "api-key": process.env.NEXT_PUBLIC_API_KEY,
           },
-          baseURL: "https://swertres-v1.vercel.app/api/",
+          baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
           data: {
             username: state.username,
             password: state.password,
             accountType: state.accountType,
-            name: state.name,
+            fullName: state.fullName,
             phoneNumber: state.phoneNumber,
             address: state.address,
           },
@@ -90,7 +90,7 @@ const AddAccountModal = ({ isOpen, closeModal, setUsers }) => {
             "Content-Type": "application/json",
             "api-key": process.env.NEXT_PUBLIC_API_KEY,
           },
-          baseURL: "hhttps://swertres-v1.vercel.app/api/",
+          baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
         });
         setUsers(res.data);
         if (res.status === 200) {
@@ -138,8 +138,8 @@ const AddAccountModal = ({ isOpen, closeModal, setUsers }) => {
               placeholder='Password'
             />
             <Input
-              name='name'
-              value={state.name}
+              name='fullName'
+              value={state.fullName}
               onChange={handleInputChange}
               marginTop='1.25rem'
               placeholder='Name'

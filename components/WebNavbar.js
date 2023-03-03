@@ -28,6 +28,16 @@ const WebNavbar = () => {
           Financial Report
         </Link>
       </li>
+      <li>
+        <Link
+          className={classnames({
+            active: router.pathname === "/admin/accounts",
+          })}
+          href='/admin/accounts'
+        >
+          Account
+        </Link>
+      </li>
     </ul>
   );
 };

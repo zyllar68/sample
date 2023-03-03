@@ -24,10 +24,10 @@ const Accounts = ({ data }) => {
   const [modal, setModal] = useState(false);
   const [users, setUsers] = useState([]);
 
-  // useEffect(() => {
-  //   setUsers(data);
-  //   console.log("yeah");
-  // }, [data]);
+  useEffect(() => {
+    setUsers(data);
+    console.log("yeah");
+  }, [data]);
 
   return (
     <>
@@ -94,7 +94,7 @@ export async function getServerSideProps(context) {
         "Content-Type": "application/json",
         "api-key": process.env.NEXT_PUBLIC_API_KEY,
       },
-      baseURL: "http://localhost:3000/api/",
+      baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
     });
     return {
       props: {
