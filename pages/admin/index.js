@@ -1,6 +1,8 @@
 import { WebNavbar, PageTitle, Button, Table } from "@/components";
 import axios from "axios";
 
+import { axios as axiosImport } from "@/lib/axios";
+
 const theadData = [
   "Date",
   "Type",
@@ -20,7 +22,7 @@ const index = ({ data }) => {
           "Content-Type": "application/json",
           "api-key": process.env.NEXT_PUBLIC_API_KEY,
         },
-        baseURL: "https://swertres-v1.vercel.app/api/",
+        baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
       });
       console.log(res.data);
     } catch (error) {}
@@ -32,7 +34,7 @@ const index = ({ data }) => {
         <PageTitle title='Draws'>
           <Button onClick={openDrawHandler} title='Open New Draw' primary />
         </PageTitle>
-        <Table theadData={theadData} tbodyData={data} />
+        {/* <Table theadData={theadData} tbodyData={data} /> */}
       </div>
     </>
   );
@@ -49,7 +51,7 @@ export async function getServerSideProps(context) {
         "Content-Type": "application/json",
         "api-key": process.env.NEXT_PUBLIC_API_KEY,
       },
-      baseURL: "https://swertres-v1.vercel.app/api/",
+      baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
     });
     return {
       props: {
