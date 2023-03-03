@@ -21,7 +21,7 @@ const LoginCard = () => {
           "Content-Type": "application/json",
           "api-key": process.env.NEXT_PUBLIC_API_KEY,
         },
-        baseURL: "https://swertres-v1.vercel.app/api/",
+        baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
         data: {
           username,
           password,

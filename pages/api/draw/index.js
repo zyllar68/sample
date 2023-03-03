@@ -23,7 +23,7 @@ export default async function handler(req, res) {
   if (hours < 14) {
     drawTime = 2;
   } else if (hours < 17) {
-    drawTime = 50;
+    drawTime = 5;
   } else if (hours < 21) {
     drawTime = 9;
   }

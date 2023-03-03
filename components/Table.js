@@ -23,13 +23,24 @@ const Table = ({
         </tr>
       </thead>
       <tbody>
-        {tbodyData.map((array, i) => (
-          <tr key={i} onClick={() => router.push("/admin/transaction")}>
-            {array.map((item, i) => (
-              <td key={i}>{item}</td>
-            ))}
-          </tr>
-        ))}
+        {tbodyData.map((item, i) => {
+          const hours = parseInt(item.timeOpened.substring(0, 2));
+          return (
+            <tr
+              key={item._id}
+              onClick={() => router.push("/admin/transaction")}
+            >
+              <td>{item.drawDate}</td>
+              <td>{item.drawTime}</td>
+              <td>
+                {item.timeOpened} {hours < 12 ? "AM" : "PM"}
+              </td>
+              <td>{item.timeClosed}</td>
+              <td>{item.collectedBets}</td>
+              <td>{item.winningNumber}</td>
+            </tr>
+          );
+        })}
         {children && children}
       </tbody>
     </table>

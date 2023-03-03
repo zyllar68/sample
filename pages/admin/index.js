@@ -1,7 +1,6 @@
+import { useState, useEffect } from "react";
 import { WebNavbar, PageTitle, Button, Table } from "@/components";
 import axios from "axios";
-
-import { axios as axiosImport } from "@/lib/axios";
 
 const theadData = [
   "Date",
@@ -12,10 +11,23 @@ const theadData = [
   "Winning Number",
 ];
 
-const index = ({ data }) => {
+const Admin = ({ data }) => {
+  const [drawData, setDrawData] = useState(data);
+  const [newDrawStatus, setNewDrawStatus] = useState(false);
+
+  useEffect(() => {
+    const result = drawData.find((item) => item.timeClosed === "open");
+    if (result) {
+      setNewDrawStatus(true);
+    } else {
+      setNewDrawStatus(false);
+    }
+    console.log(result);
+  }, [drawData]);
+
   const openDrawHandler = async () => {
     try {
-      const res = await axios({
+      await axios({
         method: "POST",
         url: "draw",
         headers: {
@@ -24,7 +36,18 @@ const index = ({ data }) => {
         },
         baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
       });
-      console.log(res.data);
+
+      const drawRes = await axios({
+        method: "GET",
+        url: "draw",
+        headers: {
+          "Content-Type": "application/json",
+          "api-key": process.env.NEXT_PUBLIC_API_KEY,
+        },
+        baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+      });
+
+      setDrawData(drawRes.data);
     } catch (error) {}
   };
   return (
@@ -32,15 +55,17 @@ const index = ({ data }) => {
       <WebNavbar />
       <div className='web-cotnainer'>
         <PageTitle title='Draws'>
-          <Button onClick={openDrawHandler} title='Open New Draw' primary />
+          {!newDrawStatus && (
+            <Button onClick={openDrawHandler} title='Open New Draw' primary />
+          )}
         </PageTitle>
-        {/* <Table theadData={theadData} tbodyData={data} /> */}
+        <Table theadData={theadData} tbodyData={drawData} />
       </div>
     </>
   );
 };
 
-export default index;
+export default Admin;
 
 export async function getServerSideProps(context) {
   try {
