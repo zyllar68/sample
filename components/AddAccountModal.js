@@ -72,7 +72,7 @@ const AddAccountModal = ({ isOpen, closeModal, setUsers }) => {
             "Content-Type": "application/json",
             "api-key": process.env.NEXT_PUBLIC_API_KEY,
           },
-          baseURL: "http://localhost:3000/api/",
+          baseURL: "https://swertres-v1.vercel.app/api/",
           data: {
             username: state.username,
             password: state.password,
@@ -90,7 +90,7 @@ const AddAccountModal = ({ isOpen, closeModal, setUsers }) => {
             "Content-Type": "application/json",
             "api-key": process.env.NEXT_PUBLIC_API_KEY,
           },
-          baseURL: "http://localhost:3000/api/",
+          baseURL: "hhttps://swertres-v1.vercel.app/api/",
         });
         setUsers(res.data);
         if (res.status === 200) {
