@@ -21,7 +21,7 @@ const tbodyData = [
   ["220223-2-001", "123", "P 10.00", "02-22-2023 09:59AM", "Juan", "Pedro"],
 ];
 
-const transaction = () => {
+const Transaction = () => {
   return (
     <>
       <WebNavbar />
@@ -47,4 +47,4 @@ const transaction = () => {
   );
 };
 
-export default transaction;
+export default Transaction;

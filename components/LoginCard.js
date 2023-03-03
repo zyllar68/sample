@@ -34,7 +34,7 @@ const LoginCard = () => {
         if (accountType === "admin") {
           router.push("/admin");
         } else {
-          router.push("/usher");
+          router.push("/admin");
         }
       }
 

@@ -9,7 +9,7 @@ import {
 
 const theadData = ["GenCoor", "Entries", "Winnings", "Payment Status", ""];
 
-const winnings = () => {
+const Winnings = () => {
   return (
     <>
       <WebNavbar />
@@ -50,4 +50,4 @@ const winnings = () => {
   );
 };
 
-export default winnings;
+export default Winnings;

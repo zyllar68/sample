@@ -9,7 +9,7 @@ import {
 
 const theadData = ["March 01, 2023", "March 31, 2023"];
 
-const financial = () => {
+const Financial = () => {
   return (
     <>
       <Modal />
@@ -58,4 +58,4 @@ const financial = () => {
   );
 };
 
-export default financial;
+export default Financial;
