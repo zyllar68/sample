@@ -10,11 +10,6 @@ const theadData = [
   "Winning Number",
 ];
 
-const tbodyData = [
-  ["03-12-2023", "2nd Draw (5pm)", "02:00 PM", "Open", "P 50,000.00", "123"],
-  ["03-12-2023", "2nd Draw (5pm)", "02:00 PM", "Open", "P 50,000.00", "123"],
-];
-
 const index = ({ data }) => {
   const openDrawHandler = async () => {
     try {
