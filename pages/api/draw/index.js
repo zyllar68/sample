@@ -46,6 +46,7 @@ export default async function handler(req, res) {
         console.log(error);
         res.status(500).json({ message: `Internal server error` });
       }
+
       break;
     case "GET":
       try {

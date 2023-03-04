@@ -34,10 +34,12 @@ export default async function handler(req, res) {
         {
           userId: authResult._id.toString(),
           accountType: authResult.accountType,
+          accountName: authResult.fullName,
         },
         process.env.JWT_SECRET
       );
       res.status(200).json({ token });
+
       break;
     default:
       break;

@@ -7,8 +7,8 @@ import Cookies from "js-cookie";
 
 const LoginCard = () => {
   const router = useRouter();
-  const [username, setUsername] = useState("admin");
-  const [password, setPassword] = useState("admin");
+  const [username, setUsername] = useState("usher1");
+  const [password, setPassword] = useState("usher1");
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +34,7 @@ const LoginCard = () => {
         if (accountType === "admin") {
           router.push("/admin");
         } else {
-          router.push("/admin");
+          router.push("/mobile");
         }
       }
 

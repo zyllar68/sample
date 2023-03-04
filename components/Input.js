@@ -9,6 +9,7 @@ const Input = ({
   disabled,
   marginTop,
   width,
+  onInput,
 }) => {
   const style = {
     marginTop,
@@ -17,7 +18,7 @@ const Input = ({
 
   return (
     <input
-      style={style}
+      onInput={onInput}
       type={type}
       className='borderedInput'
       onChange={onChange}

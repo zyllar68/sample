@@ -1,13 +1,90 @@
+import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
+import jwt from "jsonwebtoken";
+import axios from "axios";
+
 import { MobileNavbar, Input, Button, Table } from "@/components";
 
 const theadData = ["Number", "Amount", "Type"];
-const tbodyData = [
-  ["123", "10.00", "Target"],
-  ["123", "10.00", "Rambol"],
-  ["123", "10.00", "Target"],
-];
 
-const index = () => {
+const Index = (data) => {
+  const [number, setNumber] = useState();
+  const [amount, setAmount] = useState();
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [numberList, setNumberList] = useState([]);
+
+  const addNumberHandler = (type) => {
+    if (number && amount) {
+      if (number <= 3) {
+        if (type === "target") {
+          const newTarget = {
+            amount,
+            number,
+            type: "target",
+          };
+          setNumberList([...numberList, newTarget]);
+        } else {
+          if (amount % 6 === 0) {
+            const newTarget = {
+              amount,
+              number,
+              type: "rambol",
+            };
+            setNumberList([...numberList, newTarget]);
+            setNumber("");
+            setAmount("");
+            setTotalAmount(totalAmount + parseInt(amount));
+          } else {
+            alert(
+              "Please enter an amount that can be divided to the rumble number!"
+            );
+          }
+        }
+      } else {
+        alert("Please input not less than 3 digit number!");
+      }
+    } else {
+      alert("All fields are required!");
+    }
+  };
+
+  const removeNumberHandler = (index, amount) => {
+    const newList = numberList.filter((item, i) => i !== index);
+    setNumberList(newList);
+    setTotalAmount(totalAmount - parseInt(amount));
+  };
+
+  const submitNumberHandler = async (data) => {
+    const cookieData = Cookies.get("token");
+    const decoded = jwt.decode(cookieData);
+    try {
+      const entry = {
+        userId: decoded.userId,
+        fullName: decoded.accountName,
+        drawId: data.data._id,
+        drawTime: data.data.drawTime,
+        entryData: numberList,
+      };
+      const result = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/entries`,
+        entry,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": process.env.NEXT_PUBLIC_API_KEY,
+          },
+        }
+      );
+      console.log(result);
+      setNumberList([]);
+    } catch (error) {
+      console.log(error);
+      alert(
+        "There was an error while saving! please check your internet connection and try again!"
+      );
+    }
+  };
+
   return (
     <div>
       <MobileNavbar title='Home' />
@@ -16,19 +93,81 @@ const index = () => {
           Draw: 03-22-2023 1st Draw (2pm)
         </p>
         <form className='mobileContent_form'>
-          <Input placeholder='Number' type='number' />
-          <Input placeholder='Amount' type='number' />
-          <Button title='Target' primary />
-          <Button title='Rambol' primary />
+          <Input
+            value={number}
+            onChange={(e) => setNumber(e.target.value)}
+            onInput={(e) => {
+              e.target.value = Math.max(0, parseInt(e.target.value))
+                .toString()
+                .slice(0, 3);
+            }}
+            placeholder='Number'
+            type='number'
+          />
+          <Input
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            placeholder='Amount'
+            type='number'
+          />
+          <Button
+            title='Target'
+            primary
+            onClick={() => addNumberHandler("target")}
+          />
+          <Button
+            title='Rambol'
+            primary
+            onClick={() => addNumberHandler("rambol")}
+          />
           <div className='div'>
-            <p>Total: P10000000000000</p>
+            <p>Total: P{totalAmount}</p>
           </div>
-          <Button title='Submit' />
+          <Button onClick={() => submitNumberHandler(data)} title='Submit' />
         </form>
-        <Table theadData={theadData} tbodyData={tbodyData} />
+        <Table theadData={theadData}>
+          {numberList.map((item, i) => (
+            <tr key={i}>
+              <td>{item.number}</td>
+              <td>{item.amount}</td>
+              <td>{item.type}</td>
+              <td
+                style={{ color: "red" }}
+                onClick={() => removeNumberHandler(i, item.amount)}
+              >
+                remove
+              </td>
+            </tr>
+          ))}
+        </Table>
       </div>
     </div>
   );
 };
 
-export default index;
+export default Index;
+
+export async function getServerSideProps(context) {
+  try {
+    const result = await axios({
+      method: "GET",
+      url: "/draw/open",
+      headers: {
+        "Content-Type": "application/json",
+        "api-key": process.env.NEXT_PUBLIC_API_KEY,
+      },
+      baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+    });
+    return {
+      props: {
+        data: result.data,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        error: true,
+      },
+    };
+  }
+}
