@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import classNames from "classnames";
 import Dropdown from "react-bootstrap/Dropdown";
+import { format } from "date-fns";
 
 const Table = ({
   theadData = [],
@@ -9,6 +10,7 @@ const Table = ({
   width,
   theadText,
   closeDrawHandler,
+  modalShowHandler,
 }) => {
   const router = useRouter();
 
@@ -34,25 +36,30 @@ const Table = ({
             >
               <td>{item.drawDate}</td>
               <td>{item.drawTime}</td>
-              <td>
-                {item.timeOpened} {hours < 12 ? "AM" : "PM"}
-              </td>
-              <td>{item.timeClosed}</td>
+              <td>{item.status}</td>
               <td>{item.collectedBets}</td>
               <td>{item.winningNumber}</td>
               <td style={{ cursor: "pointer" }}>
                 <Dropdown>
                   <Dropdown.Toggle>...</Dropdown.Toggle>
                   <Dropdown.Menu style={{ marginRight: "1rem" }}>
-                    <Dropdown.Item
-                      eventKey='1'
-                      onClick={() => closeDrawHandler(item._id)}
-                    >
-                      Close Draw
-                    </Dropdown.Item>
-                    <Dropdown.Item eventKey='2'>
-                      Declare Winning Number
-                    </Dropdown.Item>
+                    {item.status !== "closed" && (
+                      <Dropdown.Item
+                        eventKey='1'
+                        onClick={() => closeDrawHandler(item._id)}
+                      >
+                        Close Draw
+                      </Dropdown.Item>
+                    )}
+                    {item.winningNumber === "" && (
+                      <Dropdown.Item
+                        eventKey='2'
+                        onClick={() => modalShowHandler(item._id)}
+                      >
+                        Declare Winning Number
+                      </Dropdown.Item>
+                    )}
+
                     <Dropdown.Item
                       onClick={() => router.push("/admin/collection")}
                       eventKey='3'

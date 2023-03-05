@@ -11,3 +11,4 @@ export { default as Modal } from "./Modal";
 export { default as AddAccountModal } from "./AddAccountModal";
 export { default as AccordionList } from "./AccordionList";
 export { default as DropdownComponent } from "./DropdownComponent";
+export { default as AddWinningNumber } from "./AddWinningNumber";

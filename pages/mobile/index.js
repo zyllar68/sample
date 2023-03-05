@@ -23,6 +23,9 @@ const Index = (data) => {
             type: "target",
           };
           setNumberList([...numberList, newTarget]);
+          setNumber("");
+          setAmount("");
+          setTotalAmount(totalAmount + parseInt(amount));
         } else {
           if (amount % 6 === 0) {
             const newTarget = {
@@ -54,7 +57,7 @@ const Index = (data) => {
     setTotalAmount(totalAmount - parseInt(amount));
   };
 
-  const submitNumberHandler = async (data) => {
+  const submitNumberHandler = async () => {
     const cookieData = Cookies.get("token");
     const decoded = jwt.decode(cookieData);
     try {
@@ -80,6 +83,7 @@ const Index = (data) => {
       setTotalAmount(null);
       console.log(result);
     } catch (error) {
+      console.log(error);
       console.log(error);
       alert(
         "There was an error while saving! please check your internet connection and try again!"
@@ -125,7 +129,7 @@ const Index = (data) => {
           <div className='div'>
             <p>Total: P{totalAmount}</p>
           </div>
-          <Button onClick={() => submitNumberHandler(data)} title='Submit' />
+          <Button onClick={() => submitNumberHandler()} title='Submit' />
         </form>
         <Table theadData={theadData}>
           {numberList.map((item, i) => (

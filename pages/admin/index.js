@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { WebNavbar, PageTitle, Button, Table } from "@/components";
+import {
+  WebNavbar,
+  PageTitle,
+  Button,
+  Table,
+  AddWinningNumber,
+} from "@/components";
 import axios from "axios";
 import Dropdown from "react-bootstrap/Dropdown";
 import { SSRProvider } from "@react-aria/ssr";
@@ -22,9 +28,10 @@ const theadData = [
 const Admin = ({ data }) => {
   const [drawData, setDrawData] = useState(data);
   const [newDrawStatus, setNewDrawStatus] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => {
-    const result = drawData.some((item) => item.timeClosed === "open");
+    const result = drawData.some((item) => item.status === "open");
     if (result) {
       setNewDrawStatus(true);
     } else {
@@ -91,8 +98,16 @@ const Admin = ({ data }) => {
           theadData={theadData}
           tbodyData={drawData}
           closeDrawHandler={closeDrawHandler}
+          modalShowHandler={() => setModalShow(true)}
         />
       </div>
+      {drawData.length > 0 && (
+        <AddWinningNumber
+          isOpen={modalShow}
+          closeModal={() => setModalShow(false)}
+          drawId={drawData[0]._id}
+        />
+      )}
     </>
   );
 };

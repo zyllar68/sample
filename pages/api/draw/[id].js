@@ -22,7 +22,7 @@ export default async function handler(req, res) {
           {
             _id: newId,
           },
-          { $set: { timeClosed: Date.now() } }
+          { $set: { timeClosed: Date.now(), status: "closed" } }
         );
         res.status(200).json(result);
       } catch (error) {
