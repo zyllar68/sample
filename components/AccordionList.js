@@ -12,7 +12,7 @@ const AccordionList = ({ accordionData }) => {
         <Accordion.Item eventKey={i} key={item._id}>
           <Accordion.Header>{item._id}</Accordion.Header>
           <Accordion.Body>
-            <Table theadData={theadData}>
+            {/* <Table theadData={theadData}>
               {item.allCombination.map((item, i) => (
                 <tr key={i}>
                   <td>{item.number}</td>
@@ -20,7 +20,7 @@ const AccordionList = ({ accordionData }) => {
                   <td>{item.type}</td>
                 </tr>
               ))}
-            </Table>
+            </Table> */}
           </Accordion.Body>
         </Accordion.Item>
       ))}
