@@ -41,7 +41,7 @@ const Transaction = () => {
             Winning Number: 123
           </p>
         </CardWrapper>
-        <Table theadData={theadData} tbodyData={tbodyData} />
+        {/* <Table theadData={theadData} tbodyData={tbodyData} /> */}
       </div>
     </>
   );
