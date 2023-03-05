@@ -10,6 +10,7 @@ const Input = ({
   marginTop,
   width,
   onInput,
+  defaultValue,
 }) => {
   const style = {
     marginTop,
@@ -23,6 +24,7 @@ const Input = ({
       className='borderedInput'
       onChange={onChange}
       value={value}
+      defaultValue={defaultValue}
       name={name}
       placeholder={placeholder}
       disabled={disabled}
