@@ -15,7 +15,7 @@ const Index = (data) => {
 
   const addNumberHandler = (type) => {
     if (number && amount) {
-      if (number <= 3) {
+      if (number.length === 3) {
         if (type === "target") {
           const newTarget = {
             amount,
