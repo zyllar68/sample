@@ -10,7 +10,7 @@ const theadData = ["Number", "Amount", "Type"];
 const Index = (data) => {
   const [number, setNumber] = useState();
   const [amount, setAmount] = useState();
-  const [totalAmount, setTotalAmount] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(null);
   const [numberList, setNumberList] = useState([]);
 
   const addNumberHandler = (type) => {
@@ -64,6 +64,7 @@ const Index = (data) => {
         drawId: data.data._id,
         drawTime: data.data.drawTime,
         entryData: numberList,
+        totalAmount,
       };
       const result = await axios.post(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/entries`,
@@ -75,8 +76,9 @@ const Index = (data) => {
           },
         }
       );
-      console.log(result);
       setNumberList([]);
+      setTotalAmount(null);
+      console.log(result);
     } catch (error) {
       console.log(error);
       alert(

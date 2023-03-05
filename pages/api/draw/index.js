@@ -50,7 +50,11 @@ export default async function handler(req, res) {
       break;
     case "GET":
       try {
-        const draw = await db.collection("draws").find().toArray();
+        const draw = await db
+          .collection("draws")
+          .find()
+          .sort({ _id: -1 })
+          .toArray();
         res.status(200).json(draw);
       } catch (error) {
         console.log(error);

@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { WebNavbar, PageTitle, Button, Table } from "@/components";
 import axios from "axios";
+import Dropdown from "react-bootstrap/Dropdown";
+import { SSRProvider } from "@react-aria/ssr";
+
+import Cookies from "js-cookie";
+import jwt from "jsonwebtoken";
 
 import isAuthenticated from "@/lib/authenticateToken";
 
@@ -24,7 +30,6 @@ const Admin = ({ data }) => {
     } else {
       setNewDrawStatus(false);
     }
-    console.log(result);
   }, [drawData]);
 
   const openDrawHandler = async () => {
@@ -55,6 +60,24 @@ const Admin = ({ data }) => {
       } catch (error) {}
     }
   };
+
+  const closeDrawHandler = async (drawId) => {
+    try {
+      await axios({
+        method: "POST",
+        url: `draw/${drawId}`,
+        headers: {
+          "Content-Type": "application/json",
+          "api-key": process.env.NEXT_PUBLIC_API_KEY,
+        },
+        baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+      });
+      location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <WebNavbar />
@@ -64,7 +87,11 @@ const Admin = ({ data }) => {
             <Button onClick={openDrawHandler} title='Open New Draw' primary />
           )}
         </PageTitle>
-        <Table theadData={theadData} tbodyData={drawData} />
+        <Table
+          theadData={theadData}
+          tbodyData={drawData}
+          closeDrawHandler={closeDrawHandler}
+        />
       </div>
     </>
   );

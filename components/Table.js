@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import classNames from "classnames";
+import Dropdown from "react-bootstrap/Dropdown";
 
 const Table = ({
   theadData = [],
@@ -7,6 +8,7 @@ const Table = ({
   children,
   width,
   theadText,
+  closeDrawHandler,
 }) => {
   const router = useRouter();
 
@@ -28,7 +30,7 @@ const Table = ({
           return (
             <tr
               key={item._id}
-              onClick={() => router.push("/admin/transaction")}
+              // onClick={() => router.push("/admin/transaction")}
             >
               <td>{item.drawDate}</td>
               <td>{item.drawTime}</td>
@@ -38,6 +40,24 @@ const Table = ({
               <td>{item.timeClosed}</td>
               <td>{item.collectedBets}</td>
               <td>{item.winningNumber}</td>
+              <td style={{ cursor: "pointer" }}>
+                <Dropdown>
+                  <Dropdown.Toggle>...</Dropdown.Toggle>
+                  <Dropdown.Menu style={{ marginRight: "1rem" }}>
+                    <Dropdown.Item
+                      eventKey='1'
+                      onClick={() => closeDrawHandler(item._id)}
+                    >
+                      Close Draw
+                    </Dropdown.Item>
+                    <Dropdown.Item eventKey='2'>
+                      Declare Winning Number
+                    </Dropdown.Item>
+                    <Dropdown.Item eventKey='3'>View Collections</Dropdown.Item>
+                    <Dropdown.Item eventKey='4'>View Winnings</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </td>
             </tr>
           );
         })}

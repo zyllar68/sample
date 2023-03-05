@@ -1,22 +1,8 @@
 import clientPromise from "@/lib/mongodb";
 import { format } from "date-fns";
+import { ObjectId } from "mongodb";
 
 const NEXT_PUBLIC_API_KEY = process.env.NEXT_PUBLIC_API_KEY;
-
-function getAllCombination(number) {
-  const combinations = [];
-  for (let i = 0; i < 10; i++) {
-    for (let j = 0; j < 10; j++) {
-      for (let k = 0; k < 10; k++) {
-        const combination = `${i}${j}${k}`;
-        if (combination.includes(number)) {
-          combinations.push(combination);
-        }
-      }
-    }
-  }
-  return combinations;
-}
 
 export default async function handler(req, res) {
   const apiKey = req.headers["api-key"];
@@ -30,6 +16,9 @@ export default async function handler(req, res) {
   const date = new Date();
   const year = format(date, "yyyy");
   const day = format(date, "dd");
+
+  const id = req.body.drawId;
+  const newDrawId = new ObjectId(id);
 
   switch (req.method) {
     case "POST":
@@ -86,7 +75,7 @@ export default async function handler(req, res) {
           }
         }
 
-        const entry = await db.collection("entries").insertOne({
+        await db.collection("entries").insertOne({
           _id: newId,
           drawId: req.body.drawId,
           userId: req.body.userId,
@@ -96,6 +85,16 @@ export default async function handler(req, res) {
           entryData: req.body.entryData,
           allCombination: allCombination,
         });
+
+        const entry = await db.collection("draws").updateOne(
+          { _id: newDrawId },
+          {
+            $inc: {
+              collectedBets: req.body.totalAmount,
+            },
+          }
+        );
+
         res.status(200).json(entry);
       } catch (error) {
         console.log(error);

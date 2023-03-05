@@ -14,10 +14,22 @@
   tbody {
     tr {
       border-bottom: 1px solid #dee2e6;
-      text-align: center;
       td {
         padding-top: 0.9375rem;
         padding-bottom: 0.9375rem;
+      }
+    }
+  }
+
+  .dropdown {
+    button {
+      border: 0px !important;
+      &:hover {
+        background-color: white;
+        color: $black;
+      }
+      &::after {
+        content: none;
       }
     }
   }

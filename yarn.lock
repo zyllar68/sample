@@ -1446,7 +1446,7 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.6.tgz#cee20bd55e68a1720bdab363ecf0c821ded4cd45"
   integrity sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==
 
-"@react-aria/ssr@^3.4.1":
+"@react-aria/ssr@^3.4.1", "@react-aria/ssr@^3.5.0":
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/@react-aria/ssr/-/ssr-3.5.0.tgz#40c1270a75868185f72a88cafe37bd1392f690cb"
   integrity sha512-h0MJdSWOd1qObLnJ8mprU31wI8tmKFJMuwT22MpWq6psisOOZaga6Ml4u6Ee6M6duWWISjXvqO4Sb/J0PBA+nQ==

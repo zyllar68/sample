@@ -26,7 +26,6 @@ const Accounts = ({ data }) => {
 
   useEffect(() => {
     setUsers(data);
-    console.log("yeah");
   }, [data]);
 
   return (

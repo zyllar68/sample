@@ -7,8 +7,8 @@ import Cookies from "js-cookie";
 
 const LoginCard = () => {
   const router = useRouter();
-  const [username, setUsername] = useState("usher1");
-  const [password, setPassword] = useState("usher1");
+  const [username, setUsername] = useState("admin");
+  const [password, setPassword] = useState("admin");
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
