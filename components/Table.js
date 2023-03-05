@@ -53,7 +53,12 @@ const Table = ({
                     <Dropdown.Item eventKey='2'>
                       Declare Winning Number
                     </Dropdown.Item>
-                    <Dropdown.Item eventKey='3'>View Collections</Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => router.push("/admin/collection")}
+                      eventKey='3'
+                    >
+                      View Collections
+                    </Dropdown.Item>
                     <Dropdown.Item eventKey='4'>View Winnings</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
