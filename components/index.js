@@ -9,3 +9,4 @@ export { default as CardWrapper } from "./CardWrapper";
 export { default as Card } from "./Card";
 export { default as Modal } from "./Modal";
 export { default as AddAccountModal } from "./AddAccountModal";
+export { default as AccordionList } from "./AccordionList";
