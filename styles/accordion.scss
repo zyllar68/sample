@@ -1,8 +1,13 @@
-.accordionList {
-  .accordion-header {
+.accordion {
+  &-header {
     button {
+      background-color: white !important;
+      color: black !important;
+      font-weight: $extraBold;
+      &:focus {
+        box-shadow: none;
+        border-color: rgba(0, 0, 0, 0.125);
+      }
     }
-    background-color: red !important;
-    color: black;
   }
 }

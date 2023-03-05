@@ -1,4 +1,6 @@
 import { MobileNavbar, Input, AccordionList } from "@/components";
+import axios from "axios";
+import jwt from "jsonwebtoken";
 
 const theadData = ["Entry ID", "Number", "Amount"];
 const tbodyData = [
@@ -7,7 +9,7 @@ const tbodyData = [
   ["220223-2-001", "123", "P 10.00"],
 ];
 
-const transaction = () => {
+const transaction = ({ data }) => {
   return (
     <div>
       <MobileNavbar title='Transaction' />
@@ -19,8 +21,7 @@ const transaction = () => {
             <p>P 100,000</p>
           </div>
         </div>
-        {/* <Table theadData={theadData} tbodyData={tbodyData} /> */}
-        <AccordionList />
+        <AccordionList accordionData={data} />
       </div>
     </div>
   );
@@ -30,24 +31,27 @@ export default transaction;
 
 export async function getServerSideProps(context) {
   try {
-    const result = await axios({
-      method: "GET",
-      url: "/draw/entries",
-      headers: {
-        "Content-Type": "application/json",
-        "api-key": process.env.NEXT_PUBLIC_API_KEY,
-      },
-      baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-    });
+    const cookies = context.req.cookies;
+    const decoded = jwt.decode(cookies.token);
+    const result = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/entries/${decoded.userId}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "api-key": process.env.NEXT_PUBLIC_API_KEY,
+        },
+      }
+    );
+
     return {
       props: {
-        // data: result.data,
+        data: result.data,
       },
     };
   } catch (error) {
     return {
       props: {
-        error: true,
+        data: error,
       },
     };
   }

@@ -7,15 +7,6 @@ import {
   Input,
 } from "@/components";
 
-const theadData = [
-  "Entry ID",
-  "Number",
-  "Entry Amount",
-  "Date Time",
-  "Usher",
-  "GenCoor",
-];
-
 const tbodyData = [
   ["220223-2-001", "123", "P 10.00", "02-22-2023 09:59AM", "Juan", "Pedro"],
   ["220223-2-001", "123", "P 10.00", "02-22-2023 09:59AM", "Juan", "Pedro"],
@@ -41,7 +32,6 @@ const Transaction = () => {
             Winning Number: 123
           </p>
         </CardWrapper>
-        {/* <Table theadData={theadData} tbodyData={tbodyData} /> */}
       </div>
     </>
   );
