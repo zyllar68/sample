@@ -74,7 +74,8 @@ export default async function handler(req, res) {
         .insertOne({ ...collectionList, paymentStatus: "pending" });
       res.status(200).json(result);
       break;
-
+    case "GET":
+      break;
     default:
       break;
   }
