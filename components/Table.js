@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import classNames from "classnames";
-import Dropdown from "react-bootstrap/Dropdown";
-import { format } from "date-fns";
+import { Dropdown } from "react-bootstrap";
+import EllipsIcon from "@/public/ellipsIcon.svg";
 
 const Table = ({
   theadData = [],
@@ -42,7 +42,7 @@ const Table = ({
               <td>{item.winningNumber}</td>
               <td style={{ cursor: "pointer" }}>
                 <Dropdown>
-                  <Dropdown.Toggle>...</Dropdown.Toggle>
+                  <Dropdown.Toggle id='dropdown-basic'>...</Dropdown.Toggle>
                   <Dropdown.Menu style={{ marginRight: "1rem" }}>
                     {item.status !== "closed" && (
                       <Dropdown.Item

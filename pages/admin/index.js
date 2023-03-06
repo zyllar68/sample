@@ -82,33 +82,33 @@ const Admin = ({ data }) => {
 
   if (!data) {
     return <div>Loading...</div>;
+  } else {
+    return (
+      <>
+        <WebNavbar />
+        <div className='web-cotnainer'>
+          <PageTitle title='Draws'>
+            {!newDrawStatus && (
+              <Button onClick={openDrawHandler} title='Open New Draw' primary />
+            )}
+          </PageTitle>
+          <Table
+            theadData={theadData}
+            tbodyData={drawData}
+            closeDrawHandler={closeDrawHandler}
+            modalShowHandler={() => setModalShow(true)}
+          />
+        </div>
+        {drawData.length > 0 && (
+          <AddWinningNumber
+            isOpen={modalShow}
+            closeModal={() => setModalShow(false)}
+            drawId={drawData[0]._id}
+          />
+        )}
+      </>
+    );
   }
-
-  return (
-    <>
-      <WebNavbar />
-      <div className='web-cotnainer'>
-        <PageTitle title='Draws'>
-          {!newDrawStatus && (
-            <Button onClick={openDrawHandler} title='Open New Draw' primary />
-          )}
-        </PageTitle>
-        <Table
-          theadData={theadData}
-          tbodyData={drawData}
-          closeDrawHandler={closeDrawHandler}
-          modalShowHandler={() => setModalShow(true)}
-        />
-      </div>
-      {drawData.length > 0 && (
-        <AddWinningNumber
-          isOpen={modalShow}
-          closeModal={() => setModalShow(false)}
-          drawId={drawData[0]._id}
-        />
-      )}
-    </>
-  );
 };
 
 export default Admin;
