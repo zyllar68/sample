@@ -23,12 +23,70 @@ export default async function handler(req, res) {
           .collection("draws")
           .updateOne({ _id: id }, { $set: { winningNumber: winningNumber } });
 
-        const result = await db.collection("winnings").insertOne({
-          winningNumber,
-          drawId,
-          createadAt: Date.now(),
+        const usherUsers = await db
+          .collection("users")
+          .find({ accountType: "usher" }, { projection: { _id: 1 } })
+          .toArray();
+
+        let totalWinnings;
+        let totalCollected;
+        let usherList = [];
+        let countEntries;
+
+        for (const user of usherUsers) {
+          const addAllBets = await db
+            .collection("entries")
+            .aggregate([
+              // Match entries that contain { number: 155 } in allCombination
+              {
+                $match: {
+                  userId: user._id,
+                  "allCombination.number": parseInt(winningNumber),
+                },
+              },
+              // Unwind allCombination to get one document per entry/number combination
+              { $unwind: "$allCombination" },
+              // Filter to only documents where allCombination.number is 155
+              { $match: { "allCombination.number": parseInt(winningNumber) } },
+              // Group by drawId and sum up allCombination.amount
+              {
+                $group: {
+                  _id: "$drawId",
+                  totalAmount: { $sum: "$allCombination.amount" },
+                },
+              },
+            ])
+            .toArray();
+          countEntries = await db.collection("entries").countDocuments({
+            userId: user._id,
+            "allCombination.number": parseInt(winningNumber),
+          });
+
+          if (addAllBets.length > 0) {
+            totalWinnings = parseInt(addAllBets[0].totalAmount) * 500;
+            totalCollected = addAllBets[0].totalAmount;
+          } else {
+            totalWinnings = 0;
+            totalCollected = 0;
+          }
+
+          const usherInfo = {
+            userId: user._id,
+            totalCollected: totalCollected,
+            totalWinnings: totalWinnings,
+            totalEntriesWon: countEntries,
+          };
+
+          usherList.push(usherInfo);
+        }
+        await db.collection("winnings").insertOne({
+          winningNumber: winningNumber,
+          usherList: usherList,
+          paymentStatus: "pending",
+          createdAt: Date.now(),
         });
-        res.status(200).json(result);
+
+        res.status(200).json("success");
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: `Internal server error` });

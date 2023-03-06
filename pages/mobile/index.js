@@ -18,8 +18,8 @@ const Index = (data) => {
       if (number.length === 3) {
         if (type === "target") {
           const newTarget = {
-            amount,
-            number,
+            amount: parseInt(amount),
+            number: parseInt(number),
             type: "target",
           };
           setNumberList([...numberList, newTarget]);
@@ -29,7 +29,7 @@ const Index = (data) => {
         } else {
           if (amount % 6 === 0) {
             const newTarget = {
-              amount,
+              amount: parseInt(amount),
               number,
               type: "rambol",
             };

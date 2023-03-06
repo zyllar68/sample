@@ -20,7 +20,7 @@ const theadData = [
   "Date",
   "Type",
   "Time Opened",
-  "Time Closed",
+  "Status",
   "Collected Bets",
   "Winning Number",
 ];
@@ -64,6 +64,7 @@ const Admin = ({ data }) => {
         );
 
         setDrawData(res.data);
+        location.reload();
       } catch (error) {}
     }
   };
@@ -79,7 +80,7 @@ const Admin = ({ data }) => {
         },
         baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
       });
-      location.reload();
+      // location.reload();
     } catch (error) {
       console.log(error);
     }

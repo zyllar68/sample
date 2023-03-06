@@ -36,6 +36,7 @@ const Table = ({
             >
               <td>{item.drawDate}</td>
               <td>{item.drawTime}</td>
+              <td>{item.timeOpened}</td>
               <td>{item.status}</td>
               <td>{item.collectedBets}</td>
               <td>{item.winningNumber}</td>

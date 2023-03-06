@@ -36,6 +36,7 @@ const AddWinningNumber = ({ isOpen, closeModal, drawId }) => {
             },
           }
         );
+        console.log(result);
         location.reload();
       } else {
         setError("Please enter the winning number!");
