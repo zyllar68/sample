@@ -1,4 +1,5 @@
 import clientPromise from "@/lib/mongodb";
+import { ObjectId } from "mongodb";
 
 const NEXT_PUBLIC_API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
@@ -61,20 +62,36 @@ export default async function handler(req, res) {
         }
 
         const collectionInfo = {
-          drawId: drawId,
+          _id: new ObjectId(),
           userId: user._id,
+          fullName: user.fullName,
           totalCollection: totalCollection,
+          paymentStatus: "pending",
         };
 
         collectionList.push(collectionInfo);
       }
-      console.log(collectionList);
-      const result = await db
-        .collection("collections")
-        .insertOne({ ...collectionList, paymentStatus: "pending" });
+      const result = await db.collection("collections").insertOne({
+        collectionList: collectionList,
+        drawId: drawId,
+      });
       res.status(200).json(result);
       break;
     case "GET":
+      try {
+        const result = await db
+          .collection("collections")
+          .find({
+            drawId: drawId,
+          })
+          .toArray();
+        res.status(200).json(result);
+      } catch (error) {
+        console.log(error);
+        res
+          .status(500)
+          .json({ message: "There was an error while retrieving data!" });
+      }
       break;
     default:
       break;

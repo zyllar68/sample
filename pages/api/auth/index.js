@@ -38,6 +38,7 @@ export default async function handler(req, res) {
         },
         process.env.JWT_SECRET
       );
+
       res.status(200).json({ token });
 
       break;
