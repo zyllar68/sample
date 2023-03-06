@@ -9,11 +9,12 @@ const LoginCard = () => {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     if (!username) {
       setErrorMessage("All fields required!");
     } else {
@@ -43,6 +44,7 @@ const LoginCard = () => {
         }
 
         console.log(res.data);
+        setIsLoading(false);
       } catch (error) {
         setErrorMessage("Username or password are not correct!");
       }
@@ -74,6 +76,7 @@ const LoginCard = () => {
         />
         {errorMessage && <p>{errorMessage}</p>}
         <Button
+          onLoading={isLoading}
           type='submit'
           marginTop='1.875rem'
           title='Login'
