@@ -10,15 +10,7 @@ import {
 import { protectPage } from "@/lib/pageAuth";
 import axios from "axios";
 
-const theadData = [
-  "Account ID",
-  "Type",
-  "Name",
-  "Username",
-  "Password",
-  "GenCoor",
-  "Phone Number",
-];
+const theadData = ["Account ID", "Type", "Name", "Username", "Phone Number"];
 
 const Accounts = ({ data }) => {
   const [modal, setModal] = useState(false);
@@ -50,10 +42,10 @@ const Accounts = ({ data }) => {
             />
           </div>
         </PageTitle>
-        <div style={{ display: "flex", gap: "1rem", marginBottom: "2.5rem" }}>
+        {/* <div style={{ display: "flex", gap: "1rem", marginBottom: "2.5rem" }}>
           <Input placeholder='Account Type' width='10.5rem' />
           <Input placeholder='Search Account' width='19rem' />
-        </div>
+        </div> */}
         <Table theadData={theadData}>
           {users.map(
             ({ _id, accountType, fullName, phoneNumber, username }) => (
@@ -62,12 +54,6 @@ const Accounts = ({ data }) => {
                 <td>{accountType}</td>
                 <td>{fullName}</td>
                 <td>{username}</td>
-                <td>
-                  <Button primary title='Reset' />
-                </td>
-                <td>
-                  <Button primary title='Assign' />
-                </td>
                 <td>{phoneNumber}</td>
               </tr>
             )

@@ -44,37 +44,44 @@ const Table = ({
                 <Dropdown>
                   <Dropdown.Toggle id='dropdown-basic'>...</Dropdown.Toggle>
                   <Dropdown.Menu style={{ marginRight: "1rem" }}>
-                    {item.status !== "closed" && (
+                    {item.status !== "closed" ? (
                       <Dropdown.Item
                         eventKey='1'
                         onClick={() => closeDrawHandler(item._id)}
                       >
                         Close Draw
                       </Dropdown.Item>
+                    ) : (
+                      <>
+                        {item.winningNumber === "" ? (
+                          <Dropdown.Item
+                            eventKey='2'
+                            onClick={() => modalShowHandler(item._id)}
+                          >
+                            Declare Winning Number
+                          </Dropdown.Item>
+                        ) : (
+                          <>
+                            <Dropdown.Item
+                              onClick={() =>
+                                router.push(`/admin/collection/${item._id}`)
+                              }
+                              eventKey='3'
+                            >
+                              View Collections
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              eventKey='4'
+                              onClick={() =>
+                                router.push(`/admin/winnings/${item._id}`)
+                              }
+                            >
+                              View Winnings
+                            </Dropdown.Item>
+                          </>
+                        )}
+                      </>
                     )}
-                    {item.winningNumber === "" && (
-                      <Dropdown.Item
-                        eventKey='2'
-                        onClick={() => modalShowHandler(item._id)}
-                      >
-                        Declare Winning Number
-                      </Dropdown.Item>
-                    )}
-
-                    <Dropdown.Item
-                      onClick={() =>
-                        router.push(`/admin/collection/${item._id}`)
-                      }
-                      eventKey='3'
-                    >
-                      View Collections
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      eventKey='4'
-                      onClick={() => router.push(`/admin/winnings/${item._id}`)}
-                    >
-                      View Winnings
-                    </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </td>

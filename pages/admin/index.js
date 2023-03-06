@@ -97,6 +97,7 @@ const Admin = ({ data }) => {
                 onClick={openDrawHandler}
                 title='Open New Draw'
                 primary
+                width='157px'
               />
             )}
           </PageTitle>

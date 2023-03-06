@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, getHours, getMinutes } from "date-fns";
 import clientPromise from "@/lib/mongodb";
 
 const NEXT_PUBLIC_API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -13,8 +13,8 @@ export default async function handler(req, res) {
   }
 
   const date = new Date();
-  const hours = date.getHours();
-  const mins = date.getMinutes();
+  const hours = getHours(date);
+  const mins = getMinutes(date);
 
   const drawDate = format(date, "yyyy-mm-dd");
   const timeOpened = format(date, "HH:mm");

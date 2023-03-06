@@ -21,6 +21,9 @@ const Button = ({
       })}
       disabled={onLoading}
     >
+      {/* <Spinner animation='border' role='status'>
+        <span className='visually-hidden'>Loading...</span>
+      </Spinner> */}
       {onLoading ? (
         <Spinner animation='border' role='status'>
           <span className='visually-hidden'>Loading...</span>
