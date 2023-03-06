@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import {
   WebNavbar,
   PageTitle,
@@ -8,11 +7,6 @@ import {
   AddWinningNumber,
 } from "@/components";
 import axios from "axios";
-import Dropdown from "react-bootstrap/Dropdown";
-import { SSRProvider } from "@react-aria/ssr";
-
-import Cookies from "js-cookie";
-import jwt from "jsonwebtoken";
 
 import isAuthenticated from "@/lib/authenticateToken";
 
