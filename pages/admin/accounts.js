@@ -28,6 +28,10 @@ const Accounts = ({ data }) => {
     setUsers(data);
   }, [data]);
 
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <AddAccountModal

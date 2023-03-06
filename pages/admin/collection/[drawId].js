@@ -56,6 +56,10 @@ const Transaction = ({ data }) => {
       console.log(error);
     }
   };
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <WebNavbar />

@@ -80,6 +80,10 @@ const Admin = ({ data }) => {
     }
   };
 
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <WebNavbar />
