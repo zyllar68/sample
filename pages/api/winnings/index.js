@@ -25,7 +25,10 @@ export default async function handler(req, res) {
 
         const usherUsers = await db
           .collection("users")
-          .find({ accountType: "usher" }, { projection: { _id: 1 } })
+          .find(
+            { accountType: "usher" },
+            { projection: { _id: 1, fullName: 1 } }
+          )
           .toArray();
 
         let totalWinnings;
@@ -42,6 +45,7 @@ export default async function handler(req, res) {
                 $match: {
                   userId: user._id,
                   "allCombination.number": parseInt(winningNumber),
+                  drawId,
                 },
               },
               // Unwind allCombination to get one document per entry/number combination
@@ -60,6 +64,7 @@ export default async function handler(req, res) {
           countEntries = await db.collection("entries").countDocuments({
             userId: user._id,
             "allCombination.number": parseInt(winningNumber),
+            drawId,
           });
 
           if (addAllBets.length > 0) {
@@ -71,22 +76,25 @@ export default async function handler(req, res) {
           }
 
           const usherInfo = {
+            _id: new ObjectId(),
             userId: user._id,
+            userName: user.fullName,
             totalCollected: totalCollected,
             totalWinnings: totalWinnings,
             totalEntriesWon: countEntries,
+            paymentStatus: "pending",
           };
 
           usherList.push(usherInfo);
         }
         await db.collection("winnings").insertOne({
+          drawId,
           winningNumber: winningNumber,
           usherList: usherList,
-          paymentStatus: "pending",
           createdAt: Date.now(),
         });
 
-        res.status(200).json("success");
+        res.status(200).json(usherUsers);
       } catch (error) {
         console.log(error);
         res.status(500).json({ message: `Internal server error` });

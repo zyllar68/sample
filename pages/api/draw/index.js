@@ -14,17 +14,18 @@ export default async function handler(req, res) {
 
   const date = new Date();
   const hours = date.getHours();
+  const mins = date.getMinutes();
 
   const drawDate = format(date, "yyyy-mm-dd");
   const timeOpened = format(date, "HH:mm");
 
   let drawTime;
 
-  if (hours < 14) {
+  if (hours <= 12 && mins <= 30) {
     drawTime = 2;
-  } else if (hours < 17) {
+  } else if (hours <= 17 && mins <= 30) {
     drawTime = 5;
-  } else if (hours < 21) {
+  } else if (hours <= 21 && mins <= 30) {
     drawTime = 9;
   }
 

@@ -80,7 +80,7 @@ const Admin = ({ data }) => {
         },
         baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
       });
-      // location.reload();
+      location.reload();
     } catch (error) {
       console.log(error);
     }
