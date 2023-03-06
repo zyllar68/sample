@@ -35,6 +35,7 @@ export default async function handler(req, res) {
         let totalCollected;
         let usherList = [];
         let countEntries;
+        let overAllWinnings = 0;
 
         for (const user of usherUsers) {
           const addAllBets = await db
@@ -70,6 +71,7 @@ export default async function handler(req, res) {
           if (addAllBets.length > 0) {
             totalWinnings = parseInt(addAllBets[0].totalAmount) * 500;
             totalCollected = addAllBets[0].totalAmount;
+            overAllWinnings += totalWinnings;
           } else {
             totalWinnings = 0;
             totalCollected = 0;
@@ -90,6 +92,8 @@ export default async function handler(req, res) {
         await db.collection("winnings").insertOne({
           drawId,
           winningNumber: winningNumber,
+          unPaidWinnings: overAllWinnings,
+          overAllWinnings: overAllWinnings,
           usherList: usherList,
           createdAt: Date.now(),
         });

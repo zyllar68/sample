@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     return res.status(401).json({ message: "Invalid api key" });
   }
 
-  const { winningId, usherListId, refNumber } = req.body;
+  const { winningId, usherListId, refNumber, totalWinnings } = req.body;
   const newWinningId = new ObjectId(winningId);
   const newUsherListId = new ObjectId(usherListId);
 
@@ -25,6 +25,9 @@ export default async function handler(req, res) {
             "usherList._id": newUsherListId,
           },
           {
+            $inc: {
+              unPaidWinnings: -totalWinnings,
+            },
             $set: {
               "usherList.$.paymentStatus": "paid",
               "usherList.$.refNumber": refNumber,

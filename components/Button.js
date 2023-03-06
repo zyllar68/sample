@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import Spinner from "react-bootstrap/Spinner";
 
 const Button = ({
   onClick,
@@ -7,6 +8,7 @@ const Button = ({
   marginTop,
   width,
   type = "button",
+  onLoading,
 }) => {
   const style = { marginTop, width };
   return (
@@ -17,8 +19,15 @@ const Button = ({
       className={classNames("button", {
         "primary-bg-color": primary,
       })}
+      disabled={onLoading}
     >
-      {title}
+      {onLoading ? (
+        <Spinner animation='border' role='status'>
+          <span className='visually-hidden'>Loading...</span>
+        </Spinner>
+      ) : (
+        title
+      )}
     </button>
   );
 };

@@ -33,6 +33,7 @@ const Winnings = ({ data }) => {
   const [winningData, setWinningData] = useState(data);
   const [showModal, setShowModal] = useState(false);
   const [usherId, setUsherId] = useState();
+  const [totalWinnings, setTotalWinnings] = useState(0);
   const [refNumber, setRefNumber] = useState();
   const [refError, setRefError] = useState();
 
@@ -44,6 +45,7 @@ const Winnings = ({ data }) => {
           winningId: winningData[0]._id,
           usherListId: usherId,
           refNumber,
+          totalWinnings,
         },
         {
           headers: {
@@ -72,11 +74,14 @@ const Winnings = ({ data }) => {
             <Button primary title='Back' />
           </div>
         </PageTitle>
-        <CardWrapper firstCardColor='peach' secondCardColor='light-black'>
-          {/* <div>
-            <Input placeholder='Search Gen Coor' width='26.25rem' />
-          </div> */}
-        </CardWrapper>
+        <CardWrapper
+          firstNumberTitle={winningData[0].overAllWinnings}
+          secondNumberTitle={winningData[0].unPaidWinnings}
+          firstBottomTitle='Total Winnings'
+          secondBottomTitle='Unpaid Winnings'
+          firstCardColor='peach'
+          secondCardColor='light-black'
+        ></CardWrapper>
         <Table theadData={theadData}>
           {winningData[0].usherList.map((item) => (
             <tr key={item._id}>
@@ -93,6 +98,7 @@ const Winnings = ({ data }) => {
                     primary
                     title='Confirm Payment'
                     onClick={() => {
+                      setTotalWinnings(item.totalWinnings);
                       setUsherId(item._id);
                       setShowModal(true);
                     }}

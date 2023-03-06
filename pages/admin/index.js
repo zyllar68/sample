@@ -23,6 +23,7 @@ const Admin = ({ data }) => {
   const [drawData, setDrawData] = useState(data);
   const [newDrawStatus, setNewDrawStatus] = useState(false);
   const [modalShow, setModalShow] = useState(false);
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   useEffect(() => {
     const result = drawData.some((item) => item.status === "open");
@@ -34,6 +35,7 @@ const Admin = ({ data }) => {
   }, [drawData]);
 
   const openDrawHandler = async () => {
+    setButtonLoading(!buttonLoading);
     const authToken = await isAuthenticated();
     if (authToken) {
       try {
@@ -58,6 +60,7 @@ const Admin = ({ data }) => {
         );
 
         setDrawData(res.data);
+        setButtonLoading(!buttonLoading);
         location.reload();
       } catch (error) {}
     }
@@ -89,7 +92,12 @@ const Admin = ({ data }) => {
         <div className='web-cotnainer'>
           <PageTitle title='Draws'>
             {!newDrawStatus && (
-              <Button onClick={openDrawHandler} title='Open New Draw' primary />
+              <Button
+                onLoading={buttonLoading}
+                onClick={openDrawHandler}
+                title='Open New Draw'
+                primary
+              />
             )}
           </PageTitle>
           <Table

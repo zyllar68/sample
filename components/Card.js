@@ -1,6 +1,6 @@
 import classnames from "classnames";
 
-const Card = ({ bgColor }) => {
+const Card = ({ bgColor, numberTitle, bottomTitle }) => {
   return (
     <div
       className={classnames("card", {
@@ -9,8 +9,8 @@ const Card = ({ bgColor }) => {
         "light-black-bg": bgColor === "light-black",
       })}
     >
-      <h4>P 5000,000.00</h4>
-      <p>Total Collection</p>
+      <h4>P {numberTitle}</h4>
+      <p>{bottomTitle}</p>
     </div>
   );
 };

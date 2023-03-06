@@ -23,6 +23,7 @@ export default async function handler(req, res) {
 
       let collectionList = [];
       let totalCollection = 0;
+      let overAllCollection = 0;
 
       for (const user of usherList) {
         totalCollection = await db
@@ -57,6 +58,7 @@ export default async function handler(req, res) {
 
         if (totalCollection.length > 0) {
           totalCollection = totalCollection[0].totalAmount;
+          overAllCollection += totalCollection;
         } else {
           totalCollection = 0;
         }
@@ -74,6 +76,9 @@ export default async function handler(req, res) {
       const result = await db.collection("collections").insertOne({
         collectionList: collectionList,
         drawId: drawId,
+        unPaidCollection: overAllCollection,
+        overAllCollection,
+        createdAt: Date.now(),
       });
       res.status(200).json(result);
       break;

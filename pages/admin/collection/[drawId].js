@@ -34,6 +34,7 @@ const Transaction = ({ data }) => {
   const [usherCollection, setUsherCollection] = useState();
   const [refNumber, setRefNumber] = useState();
   const [refError, setRefError] = useState();
+  const [totalCollection, setTotalCollection] = useState();
 
   const submitRefHandler = async () => {
     try {
@@ -43,6 +44,7 @@ const Transaction = ({ data }) => {
           collectionId: collectionState[0]._id,
           usherListId: usherCollection,
           refNumber,
+          totalCollection,
         },
         {
           headers: {
@@ -70,7 +72,14 @@ const Transaction = ({ data }) => {
             <Button title='Back' primary />
           </div>
         </PageTitle>
-        <CardWrapper firstCardColor='primary' secondCardColor='light-black' />
+        <CardWrapper
+          firstNumberTitle={collectionState[0].overAllCollection}
+          secondNumberTitle={collectionState[0].unPaidCollection}
+          firstBottomTitle='Total Collections'
+          secondBottomTitle='Unremitted Collections'
+          firstCardColor='primary'
+          secondCardColor='light-black'
+        />
         <Table theadData={theadData}>
           {collectionState[0].collectionList.map((item) => (
             <tr key={item._id}>
@@ -86,6 +95,7 @@ const Transaction = ({ data }) => {
                     primary
                     title='Confirm Payment'
                     onClick={() => {
+                      setTotalCollection(item.totalCollection);
                       setUsherCollection(item._id);
                       setShowModal(true);
                     }}
