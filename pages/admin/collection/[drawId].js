@@ -18,7 +18,7 @@ const Transaction = () => {
             <Button title='Back' primary />
           </div>
         </PageTitle>
-        <CardWrapper firstCardColor='peach' secondCardColor='light-black' />
+        <CardWrapper firstCardColor='primary' secondCardColor='light-black' />
         <Table theadData={theadData}></Table>
       </div>
     </>
@@ -27,13 +27,13 @@ const Transaction = () => {
 
 export default Transaction;
 
-export async function getServerSideProps(context) {
-  try {
-  } catch (error) {
-    return {
-      props: {
-        error: true,
-      },
-    };
-  }
-}
+// export async function getServerSideProps(context) {
+//   try {
+//   } catch (error) {
+//     return {
+//       props: {
+//         error: true,
+//       },
+//     };
+//   }
+// }

@@ -62,7 +62,9 @@ const Table = ({
                     )}
 
                     <Dropdown.Item
-                      onClick={() => router.push("/admin/collection")}
+                      onClick={() =>
+                        router.push(`/admin/collection/${item._id}`)
+                      }
                       eventKey='3'
                     >
                       View Collections

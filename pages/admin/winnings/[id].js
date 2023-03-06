@@ -38,7 +38,7 @@ const Winnings = ({ data }) => {
 
   const submitRefHandler = async () => {
     try {
-      const result = await axios.put(
+      await axios.put(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/winnings/editRef`,
         {
           winningId: winningData[0]._id,

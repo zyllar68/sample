@@ -26,6 +26,16 @@ const AddWinningNumber = ({ isOpen, closeModal, drawId }) => {
   const onAddWinninghandler = async () => {
     try {
       if (winningNumber !== "") {
+        const collection = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/collections`,
+          { drawId: drawId },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "api-key": process.env.NEXT_PUBLIC_API_KEY,
+            },
+          }
+        );
         const result = await axios.post(
           `${process.env.NEXT_PUBLIC_API_BASE_URL}/winnings`,
           { winningNumber, drawId },
@@ -37,6 +47,7 @@ const AddWinningNumber = ({ isOpen, closeModal, drawId }) => {
           }
         );
         console.log(result);
+        console.log(collection);
         location.reload();
       } else {
         setError("Please enter the winning number!");
