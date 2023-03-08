@@ -8,6 +8,7 @@ import { MobileNavbar, Input, Button, Table } from "@/components";
 const theadData = ["Number", "Amount", "Type"];
 
 const Index = (data) => {
+  console.log(data);
   const [number, setNumber] = useState();
   const [amount, setAmount] = useState();
   const [totalAmount, setTotalAmount] = useState(null);

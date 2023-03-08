@@ -42,9 +42,6 @@ const LoginCard = () => {
             router.push("/mobile");
           }
         }
-
-        console.log(res.data);
-        setIsLoading(false);
       } catch (error) {
         setErrorMessage("Username or password are not correct!");
       }
