@@ -25,7 +25,11 @@ const Button = ({
         <span className='visually-hidden'>Loading...</span>
       </Spinner> */}
       {onLoading ? (
-        <Spinner animation='border' role='status'>
+        <Spinner
+          animation='border'
+          role='status'
+          style={{ height: "1rem", width: "1rem" }}
+        >
           <span className='visually-hidden'>Loading...</span>
         </Spinner>
       ) : (

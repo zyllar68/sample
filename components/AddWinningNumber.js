@@ -22,8 +22,10 @@ const customStyles = {
 const AddWinningNumber = ({ isOpen, closeModal, drawId }) => {
   const [winningNumber, setWinningNumber] = useState("");
   const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onAddWinninghandler = async () => {
+    setIsLoading(true);
     try {
       if (winningNumber !== "") {
         const collection = await axios.post(
@@ -60,7 +62,9 @@ const AddWinningNumber = ({ isOpen, closeModal, drawId }) => {
   return (
     <ReactModal isOpen={isOpen} style={customStyles}>
       <div className='addAccountModal'>
-        <div className='addAccountModal__header'>Confirm Payment</div>
+        <div className='addAccountModal__header'>
+          Please enter 3 digit winning number!
+        </div>
         <div className='addAccountModal__content'>
           <form className='addAccountModal__form'>
             <Input
@@ -77,6 +81,7 @@ const AddWinningNumber = ({ isOpen, closeModal, drawId }) => {
                   .slice(0, 3);
               }}
               type='number'
+              disabled={isLoading}
             />
             <p style={{ color: "red", fontSize: "14px", marginTop: "1rem" }}>
               {error}
@@ -84,8 +89,14 @@ const AddWinningNumber = ({ isOpen, closeModal, drawId }) => {
           </form>
         </div>
         <div className='addAccountModal__buttons'>
-          <Button title='Close' onClick={closeModal} />
-          <Button title='Save' onClick={onAddWinninghandler} primary />
+          {!isLoading && <Button title='Close' onClick={closeModal} />}
+          <Button
+            title='Save'
+            width='5rem'
+            onLoading={isLoading}
+            onClick={onAddWinninghandler}
+            primary
+          />
         </div>
       </div>
     </ReactModal>

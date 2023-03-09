@@ -89,6 +89,14 @@ export default async function handler(req, res) {
 
           usherList.push(usherInfo);
         }
+
+        await db.collection("draws").updateOne(
+          {
+            drawId,
+          },
+          { $set: { totalWinnings: totalWinnings } }
+        );
+
         await db.collection("winnings").insertOne({
           drawId,
           winningNumber: winningNumber,

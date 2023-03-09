@@ -35,11 +35,16 @@ const Table = ({
               // onClick={() => router.push("/admin/transaction")}
             >
               <td>{item.drawDate}</td>
-              <td>{item.drawTime}</td>
-              <td>{item.timeOpened}</td>
+              <td>
+                {item.drawTime === 2
+                  ? "1st Draw (2pm)"
+                  : item.drawTime === 5
+                  ? "2nd Draw (5pm)"
+                  : item.drawTime === 9 && "3rd Draw (9pm)"}
+              </td>
               <td>{item.status}</td>
-              <td>{item.collectedBets}</td>
-              <td>{item.winningNumber}</td>
+              <td>₱ {item.collectedBets}</td>
+              <td>₱ {item.winningNumber}</td>
               <td style={{ cursor: "pointer" }}>
                 <Dropdown>
                   <Dropdown.Toggle id='dropdown-basic'>...</Dropdown.Toggle>
@@ -61,25 +66,27 @@ const Table = ({
                             Declare Winning Number
                           </Dropdown.Item>
                         ) : (
-                          <Dropdown.Item
-                            eventKey='4'
-                            onClick={() =>
-                              router.push(`/admin/winnings/${item._id}`)
-                            }
-                          >
-                            View Winnings
-                          </Dropdown.Item>
+                          <>
+                            <Dropdown.Item
+                              onClick={() =>
+                                router.push(`/admin/collection/${item._id}`)
+                              }
+                              eventKey='3'
+                            >
+                              View Collections
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              eventKey='4'
+                              onClick={() =>
+                                router.push(`/admin/winnings/${item._id}`)
+                              }
+                            >
+                              View Winnings
+                            </Dropdown.Item>
+                          </>
                         )}
                       </>
                     )}
-                    <Dropdown.Item
-                      onClick={() =>
-                        router.push(`/admin/collection/${item._id}`)
-                      }
-                      eventKey='3'
-                    >
-                      View Collections
-                    </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </td>

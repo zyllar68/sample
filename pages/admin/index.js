@@ -13,10 +13,10 @@ import isAuthenticated from "@/lib/authenticateToken";
 const theadData = [
   "Date",
   "Type",
-  "Time Opened",
   "Status",
   "Collected Bets",
-  "Winning Number",
+  "Winnings",
+  "Winning #",
 ];
 
 const Admin = ({ data }) => {
@@ -104,6 +104,7 @@ const Admin = ({ data }) => {
           <Table
             theadData={theadData}
             tbodyData={drawData}
+            winnings={data.winningsData}
             closeDrawHandler={closeDrawHandler}
             modalShowHandler={() => setModalShow(true)}
           />
@@ -124,7 +125,7 @@ export default Admin;
 
 export async function getServerSideProps(context) {
   try {
-    const res = await axios.get(
+    const result = await axios.get(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/draw`,
       {
         headers: {
@@ -135,7 +136,7 @@ export async function getServerSideProps(context) {
     );
     return {
       props: {
-        data: res.data,
+        data: result.data,
       },
     };
   } catch (error) {

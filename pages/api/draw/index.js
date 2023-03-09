@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   const hours = getHours(date);
   const mins = getMinutes(date);
 
-  const drawDate = format(date, "yyyy-mm-dd");
+  const drawDate = format(date, "MM-dd-yyyy");
   const timeOpened = format(date, "HH:mm");
 
   let drawTime;
