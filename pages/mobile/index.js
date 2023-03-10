@@ -8,7 +8,6 @@ import { MobileNavbar, Input, Button, Table } from "@/components";
 const theadData = ["Number", "Amount", "Type"];
 
 const Index = (data) => {
-  console.log(data);
   const [number, setNumber] = useState();
   const [amount, setAmount] = useState();
   const [totalAmount, setTotalAmount] = useState(null);
@@ -82,10 +81,7 @@ const Index = (data) => {
       );
       setNumberList([]);
       setTotalAmount(null);
-      console.log(result);
     } catch (error) {
-      console.log(error);
-      console.log(error);
       alert(
         "There was an error while saving! please check your internet connection and try again!"
       );
@@ -96,57 +92,68 @@ const Index = (data) => {
     <div>
       <MobileNavbar title='Home' />
       <div className='mobileContent'>
-        <p className='mobileContent_drawTime'>
-          Draw: 03-22-2023 1st Draw (2pm)
-        </p>
-        <form className='mobileContent_form'>
-          <Input
-            value={number}
-            onChange={(e) => setNumber(e.target.value)}
-            onInput={(e) => {
-              e.target.value = Math.max(0, parseInt(e.target.value))
-                .toString()
-                .slice(0, 3);
-            }}
-            placeholder='Number'
-            type='number'
-          />
-          <Input
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder='Amount'
-            type='number'
-          />
-          <Button
-            title='Target'
-            primary
-            onClick={() => addNumberHandler("target")}
-          />
-          <Button
-            title='Rambol'
-            primary
-            onClick={() => addNumberHandler("rambol")}
-          />
-          <div className='div'>
-            <p>Total: P{totalAmount}</p>
-          </div>
-          <Button onClick={() => submitNumberHandler()} title='Submit' />
-        </form>
-        <Table theadData={theadData}>
-          {numberList.map((item, i) => (
-            <tr key={i}>
-              <td>{item.number}</td>
-              <td>{item.amount}</td>
-              <td>{item.type}</td>
-              <td
-                style={{ color: "red" }}
-                onClick={() => removeNumberHandler(i, item.amount)}
-              >
-                remove
-              </td>
-            </tr>
-          ))}
-        </Table>
+        {data.data === null ? (
+          <h1>Draw is closed. Please wait for the next draw</h1>
+        ) : (
+          <>
+            <p className='mobileContent_drawTime'>
+              Draw: {data.data.drawDate}{" "}
+              {data.data.drawTime === 2
+                ? "1st Draw (2pm)"
+                : data.data.drawTime === 5
+                ? "2nd Draw (5pm)"
+                : data.data.drawTime === 9 && "3rd Draw (9pm)"}
+            </p>
+            <form className='mobileContent_form'>
+              <Input
+                value={number}
+                onChange={(e) => setNumber(e.target.value)}
+                onInput={(e) => {
+                  e.target.value = Math.max(0, parseInt(e.target.value))
+                    .toString()
+                    .slice(0, 3);
+                }}
+                placeholder='Number'
+                type='number'
+              />
+              <Input
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                placeholder='Amount'
+                type='number'
+              />
+              <Button
+                title='Target'
+                primary
+                onClick={() => addNumberHandler("target")}
+              />
+              <Button
+                title='Rambol'
+                primary
+                onClick={() => addNumberHandler("rambol")}
+              />
+              <div className='div'>
+                <p>Total: P{totalAmount}</p>
+              </div>
+              <Button onClick={() => submitNumberHandler()} title='Submit' />
+            </form>
+            <Table theadData={theadData}>
+              {numberList.map((item, i) => (
+                <tr key={i}>
+                  <td>{item.number}</td>
+                  <td>{item.amount}</td>
+                  <td>{item.type}</td>
+                  <td
+                    style={{ color: "red" }}
+                    onClick={() => removeNumberHandler(i, item.amount)}
+                  >
+                    remove
+                  </td>
+                </tr>
+              ))}
+            </Table>
+          </>
+        )}
       </div>
     </div>
   );

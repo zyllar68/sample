@@ -16,6 +16,7 @@ export default async function handler(req, res) {
   const date = new Date();
   const year = format(date, "yyyy");
   const day = format(date, "dd");
+  const fullDate = format(date, "yyyy-MM-dd");
 
   const id = req.body.drawId;
   const newDrawId = new ObjectId(id);
@@ -81,7 +82,7 @@ export default async function handler(req, res) {
           userId: req.body.userId,
           fullName: req.body.fullName,
           drawTime: req.body.drawTime,
-          createdAt: Date.now(),
+          createdAt: fullDate,
           entryData: req.body.entryData,
           allCombination: allCombination,
         });

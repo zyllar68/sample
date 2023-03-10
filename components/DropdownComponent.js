@@ -1,6 +1,6 @@
 import { Form } from "react-bootstrap";
 
-const DropdownComponent = ({ onChange, selectedValue }) => {
+const DropdownComponent = ({ onChange, selectedValue = "all" }) => {
   return (
     <Form.Select size='lg' onChange={onChange} value={selectedValue}>
       <option value='all'>All Draws</option>

@@ -1,4 +1,5 @@
 import clientPromise from "@/lib/mongodb";
+import { format } from "date-fns";
 
 const NEXT_PUBLIC_API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
@@ -11,14 +12,27 @@ export default async function handler(req, res) {
     return res.status(401).json({ message: "Invalid api key" });
   }
 
-  const { id } = req.query;
+  const newDate = new Date();
+  const formattedDate = format(newDate, "yyyy-MM-dd");
+
+  const { id, createdAt, drawTime } = req.query;
+
+  let DEFAULT_DRAW_TIMES = [2, 5, 9]; // default drawTime values
+  let drawTimeArray =
+    drawTime === "all" ? DEFAULT_DRAW_TIMES : [parseInt(drawTime)];
+
+  console.log(drawTimeArray);
 
   switch (req.method) {
     case "GET":
       try {
         const entries = await db
           .collection("entries")
-          .find({ userId: id })
+          .find({
+            userId: id,
+            createdAt: createdAt ? createdAt : formattedDate,
+            drawTime: { $in: drawTimeArray },
+          })
           .toArray();
         res.status(200).json(entries);
       } catch (error) {

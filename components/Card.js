@@ -1,6 +1,7 @@
 import classnames from "classnames";
 
-const Card = ({ bgColor, numberTitle, bottomTitle }) => {
+const Card = ({ bgColor, numberTitle, bottomTitle, minWidth, width }) => {
+  const style = { width };
   return (
     <div
       className={classnames("card", {
@@ -8,6 +9,7 @@ const Card = ({ bgColor, numberTitle, bottomTitle }) => {
         "peach-bg": bgColor === "peach",
         "light-black-bg": bgColor === "light-black",
       })}
+      style={style}
     >
       <h4>P {numberTitle}</h4>
       <p>{bottomTitle}</p>

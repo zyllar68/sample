@@ -11,6 +11,8 @@ import {
 } from "@/components";
 import ReactModal from "react-modal";
 
+import { useRouter } from "next/router";
+
 const theadData = ["usher", "Entries", "Winnings", "Payment Status", ""];
 
 const customStyles = {
@@ -30,7 +32,9 @@ const customStyles = {
 };
 
 const Winnings = ({ data }) => {
-  const [winningData, setWinningData] = useState(data);
+  console.log(data);
+  const router = useRouter();
+  const [winningData, setWinningData] = useState(data.winningData);
   const [showModal, setShowModal] = useState(false);
   const [usherId, setUsherId] = useState();
   const [totalWinnings, setTotalWinnings] = useState(0);
@@ -66,12 +70,16 @@ const Winnings = ({ data }) => {
 
   return (
     <>
-      <WebNavbar />
+      {/* <WebNavbar />
       <div className='web-cotnainer'>
         <PageTitle title='Winnings'>
           <div style={{ display: "flex", gap: "1rem" }}>
             <p>03-12-2023 1st Draw (2pm)</p>
-            <Button primary title='Back' />
+            <Button
+              primary
+              title='Back'
+              onClick={() => router.push("/admin")}
+            />
           </div>
         </PageTitle>
         <CardWrapper
@@ -130,7 +138,7 @@ const Winnings = ({ data }) => {
             <Button onClick={submitRefHandler} title='Save Changes' primary />
           </div>
         </div>
-      </ReactModal>
+      </ReactModal> */}
     </>
   );
 };
@@ -140,6 +148,7 @@ export default Winnings;
 export async function getServerSideProps(context) {
   try {
     const { id } = context.query;
+
     const result = await axios({
       method: "GET",
       url: `winnings/${id}`,
@@ -149,9 +158,20 @@ export async function getServerSideProps(context) {
       },
       baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
     });
+
+    const drawData = await axios(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/draw/${result.data[0].drawId}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "api-key": process.env.NEXT_PUBLIC_API_KEY,
+        },
+      }
+    );
+    console.log(drawData);
     return {
       props: {
-        data: result.data,
+        data: { winningData: result.data, drawData: drawData.data },
       },
     };
   } catch (error) {

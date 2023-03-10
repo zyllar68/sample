@@ -16,11 +16,13 @@ const CardWrapper = ({
           bgColor={firstCardColor}
           numberTitle={firstNumberTitle}
           bottomTitle={firstBottomTitle}
+          width='250px'
         />
         <Card
           bgColor={secondCardColor}
           numberTitle={secondNumberTitle}
           bottomTitle={secondBottomTitle}
+          width='250px'
         />
       </div>
       {children}

@@ -21,11 +21,11 @@ export default async function handler(req, res) {
 
   let drawTime;
 
-  if (hours <= 12 && mins <= 30) {
+  if (hours <= 12) {
     drawTime = 2;
-  } else if (hours <= 17 && mins <= 30) {
+  } else if (hours <= 17) {
     drawTime = 5;
-  } else if (hours <= 21 && mins <= 30) {
+  } else if (hours <= 21) {
     drawTime = 9;
   }
 
