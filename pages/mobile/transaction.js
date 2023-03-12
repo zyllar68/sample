@@ -15,6 +15,7 @@ const Transaction = ({ data }) => {
   const [selectedDate, setSelectedDate] = useState(
     format(new Date(), "yyyy-MM-dd")
   );
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -54,9 +55,9 @@ const Transaction = ({ data }) => {
             selectedValue={selectedDrawTime}
             onChange={(e) => setSelectedDrawTime(e.target.value)}
           />
-          <div className='transaction_totalCollected'>
+          {/* <div className='transaction_totalCollected'>
             <p>P 100,000</p>
-          </div>
+          </div> */}
         </div>
         <AccordionList accordionData={transactionState} />
       </div>
