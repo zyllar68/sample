@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import {
   MobileNavbar,
   Input,
@@ -6,15 +7,16 @@ import {
   Button,
   DropdownComponent,
 } from "@/components";
-import { format, subDays } from "date-fns";
+import { format } from "date-fns";
 
 const theadData = ["Agent ID", "Usher Dapitan 001"];
 
-const Report = () => {
-  const yesterday = subDays(new Date(), 1);
+const Report = ({ data }) => {
+  console.log(data);
+  const [drawDropdown, setDrawDropdown] = useState("1");
+  const [drawDate, setDrawDate] = useState(format(new Date(), "yyyy-MM-dd"));
 
-  const [drawDropdown, setDrawDropdown] = useState();
-  const [drawDate, setDrawDate] = useState(format(yesterday, "yyyy-MM-dd"));
+  useEffect(() => {}, [drawDate, drawDropdown]);
 
   return (
     <div>
@@ -30,12 +32,20 @@ const Report = () => {
             onChange={(e) => setDrawDropdown(e.target.value)}
             value={drawDropdown}
           />
-          <Button title='Generate' primary />
+          {/* <Button title='Generate' primary /> */}
         </div>
         <Table theadData={theadData}>
           <tr>
-            <td>03-01-2023</td>
-            <td>All Draws</td>
+            <td>{drawDate}</td>
+            <td>
+              {drawDropdown === "2"
+                ? "1st Draw (2pm)"
+                : drawDropdown === "5"
+                ? "2nd Draw (5pm)"
+                : drawDropdown === "9"
+                ? "3rd Draw (9pm)"
+                : drawDropdown === "1" && "all"}
+            </td>
           </tr>
           <tr>
             <td>Total Collection</td>
@@ -62,29 +72,27 @@ const Report = () => {
 export default Report;
 
 export async function getServerSideProps(context) {
-  try {
-    const cookies = context.req.cookies;
-    const decoded = jwt.decode(cookies.token);
-    console.log(decoded);
-    // const result = await axios.get(
-    //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/entries/${decoded.userId}`,
-    //   {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       "api-key": process.env.NEXT_PUBLIC_API_KEY,
-    //     },
-    //   }
-    // );
+  const newDate = format(new Date(), "MM-dd-yyy");
 
+  try {
+    const result = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/report?newDate=${newDate}&drawTime=1`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "api-key": process.env.NEXT_PUBLIC_API_KEY,
+        },
+      }
+    );
     return {
       props: {
-        // data: result.data,
+        data: result,
       },
     };
   } catch (error) {
     return {
       props: {
-        // data: error,
+        data: error.message,
       },
     };
   }
