@@ -8,15 +8,42 @@ import {
   DropdownComponent,
 } from "@/components";
 import { format } from "date-fns";
+import Cookies from "js-cookie";
+import jwt from "jsonwebtoken";
 
 const theadData = ["Agent ID", "Usher Dapitan 001"];
 
 const Report = ({ data }) => {
-  console.log(data);
+  const { result, userId } = data;
+  const [drawState, setDrawState] = useState(result);
   const [drawDropdown, setDrawDropdown] = useState("1");
   const [drawDate, setDrawDate] = useState(format(new Date(), "yyyy-MM-dd"));
 
-  useEffect(() => {}, [drawDate, drawDropdown]);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const result = await axios.get(
+          `${
+            process.env.NEXT_PUBLIC_API_BASE_URL
+          }/report/${userId}?newDate=${format(
+            new Date(drawDate),
+            "MM-dd-yyyy"
+          )}&drawTime=${drawDropdown}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "api-key": process.env.NEXT_PUBLIC_API_KEY,
+            },
+          }
+        );
+        setDrawState(result.data);
+        console.log(drawDropdown);
+      } catch (error) {
+        alert("error!" + error);
+      }
+    }
+    fetchData();
+  }, [drawDate, drawDropdown, userId]);
 
   return (
     <div>
@@ -49,15 +76,17 @@ const Report = ({ data }) => {
           </tr>
           <tr>
             <td>Total Collection</td>
-            <td>P 10,000.00</td>
+            <td>P {drawState}</td>
           </tr>
           <tr>
             <td>Remittance</td>
-            <td>P 8,000.00</td>
+            <td>P {drawState - drawState * 0.2}</td>
           </tr>
           <tr>
             <td style={{ fontWeight: 700 }}>Total Commissions</td>
-            <td style={{ fontWeight: 700 }}>P 2,000.00</td>
+            <td style={{ fontWeight: 700 }}>
+              P {(drawState * 0.2).toFixed(2)}
+            </td>
           </tr>
           <tr>
             <td>Total Winnings</td>
@@ -73,10 +102,12 @@ export default Report;
 
 export async function getServerSideProps(context) {
   const newDate = format(new Date(), "MM-dd-yyy");
+  const cookies = context.req.cookies;
+  const decoded = jwt.decode(cookies.token);
 
   try {
     const result = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/report?newDate=${newDate}&drawTime=1`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/report/${decoded.userId}?newDate=${newDate}&drawTime=1`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -86,7 +117,10 @@ export async function getServerSideProps(context) {
     );
     return {
       props: {
-        data: result,
+        data: {
+          result: result.data,
+          userId: decoded.userId,
+        },
       },
     };
   } catch (error) {

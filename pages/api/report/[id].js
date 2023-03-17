@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     return res.status(401).json({ message: "Invalid api key" });
   }
 
-  const { newDate, drawTime } = req.query;
+  const { newDate, drawTime, id } = req.query;
   let collectionResult = [];
   let totalAmount = 0;
   switch (req.method) {
@@ -33,6 +33,7 @@ export default async function handler(req, res) {
             .collection("entries")
             .find({
               drawId: result[0]._id.toString(),
+              userId: id && id,
             })
             .toArray();
         }
