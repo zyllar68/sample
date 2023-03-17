@@ -88,10 +88,10 @@ const Report = ({ data }) => {
               P {(drawState * 0.2).toFixed(2)}
             </td>
           </tr>
-          <tr>
+          {/* <tr>
             <td>Total Winnings</td>
             <td>P 5,000.00</td>
-          </tr>
+          </tr> */}
         </Table>
       </div>
     </div>
