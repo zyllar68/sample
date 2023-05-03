@@ -83,6 +83,7 @@ const Index = (data) => {
       setNumberList([]);
       setTotalAmount(null);
     } catch (error) {
+      console.log(error);
       alert(
         "There was an error while saving! please check your internet connection and try again!"
       );

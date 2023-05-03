@@ -43,6 +43,7 @@ const LoginCard = () => {
           }
         }
       } catch (error) {
+        console.log(error);
         setErrorMessage("Username or password are not correct!");
       }
     }

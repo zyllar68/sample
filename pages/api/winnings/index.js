@@ -92,9 +92,9 @@ export default async function handler(req, res) {
 
         await db.collection("draws").updateOne(
           {
-            drawId,
+            _id: id,
           },
-          { $set: { totalWinnings: totalWinnings } }
+          { $set: { totalWinnings: overAllWinnings } }
         );
 
         await db.collection("winnings").insertOne({

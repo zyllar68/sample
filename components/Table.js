@@ -28,6 +28,7 @@ const Table = ({
       </thead>
       <tbody>
         {tbodyData.map((item, i) => {
+          console.log(item);
           const hours = parseInt(item.timeOpened.substring(0, 2));
           return (
             <tr
@@ -44,7 +45,8 @@ const Table = ({
               </td>
               <td>{item.status}</td>
               <td>₱ {item.collectedBets}</td>
-              <td>₱ {item.winningNumber}</td>
+              <td>₱{item.totalWinnings}</td>
+              <td>{item.winningNumber}</td>
               <td style={{ cursor: "pointer" }}>
                 <Dropdown>
                   <Dropdown.Toggle id='dropdown-basic'>...</Dropdown.Toggle>
@@ -69,7 +71,7 @@ const Table = ({
                           <>
                             <Dropdown.Item
                               onClick={() =>
-                                router.push(`/admin/collection/${item._id}`)
+                                router.push(`/admin/collections/${item._id}`)
                               }
                               eventKey='3'
                             >
@@ -77,9 +79,9 @@ const Table = ({
                             </Dropdown.Item>
                             <Dropdown.Item
                               eventKey='4'
-                              onClick={() =>
-                                router.push(`/admin/winnings/${item._id}`)
-                              }
+                              onClick={() => {
+                                router.push(`/admin/winnings/${item._id}`);
+                              }}
                             >
                               View Winnings
                             </Dropdown.Item>

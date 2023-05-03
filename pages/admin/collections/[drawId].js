@@ -9,6 +9,7 @@ import {
 } from "@/components";
 import ReactModal from "react-modal";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const customStyles = {
   overlay: {
@@ -29,6 +30,7 @@ const customStyles = {
 const theadData = ["Usher", "Total Collected", "Remittance Status"];
 
 const Transaction = ({ data }) => {
+  const router = useRouter();
   const [collectionState, setCollectionState] = useState(data);
   const [showModal, setShowModal] = useState(false);
   const [usherCollection, setUsherCollection] = useState();
@@ -69,7 +71,13 @@ const Transaction = ({ data }) => {
         <PageTitle title='Winnings'>
           <div style={{ display: "flex" }}>
             <p>03-12-2023 1st Draw (2pm)</p>
-            <Button title='Back' primary />
+            <Button
+              title='Back'
+              primary
+              onClick={() => {
+                router.back();
+              }}
+            />
           </div>
         </PageTitle>
         <CardWrapper
@@ -81,29 +89,33 @@ const Transaction = ({ data }) => {
           secondCardColor='light-black'
         />
         <Table theadData={theadData}>
-          {collectionState[0].collectionList.map((item) => (
-            <tr key={item._id}>
-              <td>{item.fullName}</td>
-              <td>P {item.totalCollection}</td>
-              <td>
-                {item.paymentStatus}
-                {item.refNumber && `- ${item.refNumber}`}
-              </td>
-              <td>
-                {item.paymentStatus === "pending" && (
-                  <Button
-                    primary
-                    title='Confirm Payment'
-                    onClick={() => {
-                      setTotalCollection(item.totalCollection);
-                      setUsherCollection(item._id);
-                      setShowModal(true);
-                    }}
-                  />
-                )}
-              </td>
-            </tr>
-          ))}
+          {collectionState[0].collectionList.map((item) => {
+            console.log(item);
+            return (
+              <tr key={item._id}>
+                <td>{item.fullName}</td>
+                <td>P {item.totalCollection}</td>
+                <td>
+                  {item.totalCollection > 0 && item.paymentStatus}
+                  {item.refNumber && `- ${item.refNumber}`}
+                </td>
+                <td>
+                  {item.totalCollection > 0 &&
+                    item.paymentStatus === "pending" && (
+                      <Button
+                        primary
+                        title='Confirm Payment'
+                        onClick={() => {
+                          setTotalCollection(item.totalCollection);
+                          setUsherCollection(item._id);
+                          setShowModal(true);
+                        }}
+                      />
+                    )}
+                </td>
+              </tr>
+            );
+          })}
         </Table>
       </div>
       <ReactModal isOpen={showModal} style={customStyles}>

@@ -20,6 +20,7 @@ const theadData = [
 ];
 
 const Admin = ({ data }) => {
+  console.log(data);
   const [drawData, setDrawData] = useState(data);
   const [newDrawStatus, setNewDrawStatus] = useState(false);
   const [modalShow, setModalShow] = useState(false);

@@ -48,8 +48,6 @@ const AddWinningNumber = ({ isOpen, closeModal, drawId }) => {
             },
           }
         );
-        console.log(result);
-        console.log(collection);
         location.reload();
       } else {
         setError("Please enter the winning number!");

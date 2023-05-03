@@ -70,7 +70,7 @@ const Winnings = ({ data }) => {
 
   return (
     <>
-      {/* <WebNavbar />
+      <WebNavbar />
       <div className='web-cotnainer'>
         <PageTitle title='Winnings'>
           <div style={{ display: "flex", gap: "1rem" }}>
@@ -91,30 +91,33 @@ const Winnings = ({ data }) => {
           secondCardColor='light-black'
         ></CardWrapper>
         <Table theadData={theadData}>
-          {winningData[0].usherList.map((item) => (
-            <tr key={item._id}>
-              <td>{item.userName}</td>
-              <td>{item.totalEntriesWon}</td>
-              <td>P {item.totalWinnings}</td>
-              <td>
-                {item.paymentStatus}
-                {item.refNumber && `- ${item.refNumber}`}
-              </td>
-              <td>
-                {item.paymentStatus === "pending" && (
-                  <Button
-                    primary
-                    title='Confirm Payment'
-                    onClick={() => {
-                      setTotalWinnings(item.totalWinnings);
-                      setUsherId(item._id);
-                      setShowModal(true);
-                    }}
-                  />
-                )}
-              </td>
-            </tr>
-          ))}
+          {winningData[0].usherList.map((item) => {
+            console.log(item);
+            return (
+              <tr key={item._id}>
+                <td>{item.userName}</td>
+                <td>{item.totalEntriesWon}</td>
+                <td>P {item.totalWinnings}</td>
+                <td>
+                  {item.totalWinnings > 1 && item.paymentStatus}
+                  {item.refNumber && `- ${item.refNumber}`}
+                </td>
+                <td>
+                  {item.totalWinnings > 1 && item.paymentStatus === "pending" && (
+                    <Button
+                      primary
+                      title='Confirm Payment'
+                      onClick={() => {
+                        setTotalWinnings(item.totalWinnings);
+                        setUsherId(item._id);
+                        setShowModal(true);
+                      }}
+                    />
+                  )}
+                </td>
+              </tr>
+            );
+          })}
         </Table>
       </div>
       <ReactModal isOpen={showModal} style={customStyles}>
@@ -138,7 +141,7 @@ const Winnings = ({ data }) => {
             <Button onClick={submitRefHandler} title='Save Changes' primary />
           </div>
         </div>
-      </ReactModal> */}
+      </ReactModal>
     </>
   );
 };
@@ -158,20 +161,19 @@ export async function getServerSideProps(context) {
       },
       baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
     });
-
-    const drawData = await axios(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/draw/${result.data[0].drawId}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "api-key": process.env.NEXT_PUBLIC_API_KEY,
-        },
-      }
-    );
-    console.log(drawData);
+    // const drawData = await axios(
+    //   `${process.env.NEXT_PUBLIC_API_BASE_URL}/draw/${result.data[0].drawId}`,
+    //   {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "api-key": process.env.NEXT_PUBLIC_API_KEY,
+    //     },
+    //   }
+    // );
     return {
       props: {
-        data: { winningData: result.data, drawData: drawData.data },
+        // data: { winningData: result.data, drawData: drawData.data },
+        data: { winningData: result.data },
       },
     };
   } catch (error) {
